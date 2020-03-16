@@ -6,21 +6,22 @@ namespace BTC
 	{
 		private Dictionary<string, IBTCData> elements;
 
-		public void Add(string tag, int value)
+		public BTCObject()
 		{
-			this.elements.Add(tag, new BTCElement<int>(value));
+			this.elements = new Dictionary<string, IBTCData>();
 		}
-		public void Add(string tag, double value)
+
+		public void Add(string tag, BTCNumber value)
 		{
-			this.elements.Add(tag, new BTCElement<double>(value));
+			this.elements.Add(tag, value);
 		}
-		public void Add(string tag, string value)
+		public void Add(string tag, BTCString value)
 		{
-			this.elements.Add(tag, new BTCElement<string>(value));
+			this.elements.Add(tag, value);
 		}
-		public void Add(string tag, bool value)
+		public void Add(string tag, BTCBool value)
 		{
-			this.elements.Add(tag, new BTCElement<bool>(value));
+			this.elements.Add(tag, value);
 		}
 		public void Add(string tag, BTCObject value)
 		{
@@ -35,9 +36,68 @@ namespace BTC
 			this.elements.Remove(tag);
 		}
 
+		// Guarantee exception safe
+		public IBTCData Tag(string tag)
+		{
+			IBTCData val;
+
+			try
+			{
+				val = this.elements[tag];
+			}
+			catch (KeyNotFoundException)
+			{
+				val = null;
+			}
+
+			return val;
+		}
+		public List<string> Tags()
+		{
+			List<string> result = new List<string>();
+
+			foreach (var item in this.elements)
+			{
+				result.Add(item.Key);
+			}
+
+			return result;
+		}
+
 		public string Encode()
 		{
-			return "";
+			string result = "(";
+			
+			foreach (var item in this.elements)
+			{
+				result += "@" + item.Key + ">";
+				result += item.Value.Encode();
+			}
+
+			result += ")";
+
+			return result;
+		}
+		public string Encode(int separators)
+		{
+			string result = "(\r\n";
+			string sep = "";
+			
+			// Set-up the separotor string
+			for (int i = 0; i < separators; i++)
+				sep += "\t";
+
+			foreach (var item in this.elements)
+			{
+				result += sep + "\t";
+				result += "@" + item.Key + " > ";
+				result += item.Value.Encode(separators++);
+				result += "\r\n";
+			}
+
+			result += sep + ")";
+
+			return result;
 		}
 	}
 }
