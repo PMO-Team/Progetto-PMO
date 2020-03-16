@@ -1,0 +1,14 @@
+/home/nick/Scrivania/Uni/Progetti/Progetto-PMO/Testing/bin/Debug/netcoreapp3.1/Testing
+/home/nick/Scrivania/Uni/Progetti/Progetto-PMO/Testing/bin/Debug/netcoreapp3.1/Testing.deps.json
+/home/nick/Scrivania/Uni/Progetti/Progetto-PMO/Testing/bin/Debug/netcoreapp3.1/Testing.runtimeconfig.json
+/home/nick/Scrivania/Uni/Progetti/Progetto-PMO/Testing/bin/Debug/netcoreapp3.1/Testing.runtimeconfig.dev.json
+/home/nick/Scrivania/Uni/Progetti/Progetto-PMO/Testing/bin/Debug/netcoreapp3.1/Testing.dll
+/home/nick/Scrivania/Uni/Progetti/Progetto-PMO/Testing/bin/Debug/netcoreapp3.1/Testing.pdb
+/home/nick/Scrivania/Uni/Progetti/Progetto-PMO/Testing/bin/Debug/netcoreapp3.1/BTC.dll
+/home/nick/Scrivania/Uni/Progetti/Progetto-PMO/Testing/bin/Debug/netcoreapp3.1/BTC.pdb
+/home/nick/Scrivania/Uni/Progetti/Progetto-PMO/Testing/obj/Debug/netcoreapp3.1/Testing.csprojAssemblyReference.cache
+/home/nick/Scrivania/Uni/Progetti/Progetto-PMO/Testing/obj/Debug/netcoreapp3.1/Testing.AssemblyInfoInputs.cache
+/home/nick/Scrivania/Uni/Progetti/Progetto-PMO/Testing/obj/Debug/netcoreapp3.1/Testing.AssemblyInfo.cs
+/home/nick/Scrivania/Uni/Progetti/Progetto-PMO/Testing/obj/Debug/netcoreapp3.1/Testing.csproj.CopyComplete
+/home/nick/Scrivania/Uni/Progetti/Progetto-PMO/Testing/obj/Debug/netcoreapp3.1/Testing.dll
+/home/nick/Scrivania/Uni/Progetti/Progetto-PMO/Testing/obj/Debug/netcoreapp3.1/Testing.pdb

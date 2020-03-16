@@ -1,0 +1,36 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v3.1",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v3.1": {
+      "Testing/1.0.0": {
+        "dependencies": {
+          "BTC": "1.0.0"
+        },
+        "runtime": {
+          "Testing.dll": {}
+        }
+      },
+      "BTC/1.0.0": {
+        "runtime": {
+          "BTC.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Testing/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "BTC/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
