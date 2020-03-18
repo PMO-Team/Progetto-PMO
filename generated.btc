@@ -1,3 +1,5 @@
 (
-	@new-entry > "Sono appena stato aggiunto"
+	@swear > "WTF"
+	@wtf > "che vor dire",
+	@understood > false
 )

@@ -42,10 +42,11 @@ namespace Testing
                 BTCObject myObject = BTCParser.ParseFromFile(System.AppDomain.CurrentDomain.BaseDirectory + 
                                     "../../../../generated.btc");
 
-                myObject.Add("new-entry", new BTCString("Sono appena stato aggiunto"));
+                myObject.Add("gfhjk", new BTCString("WTF"));
 
-                BTCParser.EncodeIntoFile(myObject,
-                    System.AppDomain.CurrentDomain.BaseDirectory + "../../../../generated.btc", true);
+                Console.WriteLine(myObject.Encode());
+                //BTCParser.EncodeIntoFile(myObject,
+                //    System.AppDomain.CurrentDomain.BaseDirectory + "../../../../generated.btc", true);
             }
             catch (BTCSyntaxErrorException e)
             {
