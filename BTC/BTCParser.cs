@@ -64,7 +64,11 @@ namespace BTC
 			for (i += 1; str[i] != ']'; )
 			{
 				ParseItem(ref i, in str, ref mList);
+				if (str[i] == '|')
+					i += 1;
 			}
+			
+			i += 1;
 
 			return mList;
 		}
@@ -111,7 +115,31 @@ namespace BTC
 	//
 		private static void ParseItem(ref int i, in string str, ref BTCList list)
 		{
-			
+			if (str[i] == '(')
+				list.Add(ParseObject(ref i, in str));
+			else if (str[i] == '[')
+				list.Add(ParseList(ref i, in str));
+			else if (str[i] == '\"')
+				list.Add(new BTCString(ParseString(ref i, in str)));
+			else
+			{
+				string value = "";
+				for (; (str[i] != '|') && (str[i] != ']'); i++)
+					value += str[i];
+				
+				if (value.Length == 0)
+					throw new BTCSyntaxErrorException("Syntax Error: no item value;\r\nFound At: " + i);
+				
+				double dValue;
+				bool bValue;
+
+				if (double.TryParse(value, out dValue))
+					list.Add(new BTCNumber(dValue));
+				else if (bool.TryParse(value, out bValue))
+					list.Add(new BTCBool(bValue));
+				else 
+					throw new BTCSyntaxErrorException("Syntax Error: invalid item value;\r\nFound At: " + i);
+			}
 		}
 		//
 		private static string ParseString(ref int i, in  string str)
