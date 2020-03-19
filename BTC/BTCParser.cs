@@ -54,6 +54,11 @@ namespace BTC
 				ParseElement(ref i, in str, ref mObj);
 			}
 
+			if (mObj.Count() == 0)
+				throw new BTCSyntaxErrorException("Syntax Error: cannot insert an empty object");
+
+			i += 1;
+
 			return mObj;
 		}
 	//
@@ -68,6 +73,9 @@ namespace BTC
 					i += 1;
 			}
 			
+			if (mList.Count() == 0)
+				throw new BTCSyntaxErrorException("Syntax Error: cannot insert an empty list");
+
 			i += 1;
 
 			return mList;
