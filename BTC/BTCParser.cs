@@ -72,14 +72,14 @@ namespace BTC
 		private static void ParseElement(ref int i, in string str, ref BTCObject obj)
 		{
 			if (str[i] != '@')
-				throw new BTCSyntaxErrorException("A:" + i);
+				throw new BTCSyntaxErrorException("Syntax Error: Not A Tag;\r\nFound At: " + i);
 			
 			string tag = "";
 			for (i += 1; IsTag(str[i]) ; i++)
 				tag += str[i];
 			
 			if ((tag.Length == 0) || (str[i] != '>'))
-				throw new BTCSyntaxErrorException("B:" + i);
+				throw new BTCSyntaxErrorException("Syntax Error: Invalid Separator in Element;\r\nFound At: " + i);
 			
 			i += 1;
 			if (str[i] == '(')
@@ -91,11 +91,11 @@ namespace BTC
 			else
 			{
 				string value = "";
-				for (; (str[i] != '@') || (str[i] != ')'); i++) // ???
+				for (; (str[i] != '@') && (str[i] != ')'); i++)
 					value += str[i];
 				
 				if (value.Length == 0)
-					throw new BTCSyntaxErrorException("C:" + i);
+					throw new BTCSyntaxErrorException("Syntax Error: No Element Value;\r\nFound At: " + i);
 				
 				double dValue;
 				bool bValue;
@@ -105,7 +105,7 @@ namespace BTC
 				else if (bool.TryParse(value, out bValue))
 					obj.Add(tag, new BTCBool(bValue));
 				else 
-					throw new BTCSyntaxErrorException("D: " + i);
+					throw new BTCSyntaxErrorException("Syntax Error: Invalid Element Value;\r\nFound At: " + i);
 			}
 		}
 	//
@@ -128,27 +128,43 @@ namespace BTC
 		}
 
 		// Public Parsing Methods
+		//
 		public static BTCObject Decode(string str)
 		{
-			string norm = Normalize(in str);
-			
-			int i = 0;
-			BTCObject rObj = ParseObject(ref i, in norm);
+			try
+			{
+				string norm = Normalize(in str);
+				
+				int i = 0;
+				BTCObject rObj = ParseObject(ref i, in norm);
 
-			return rObj;
+				return rObj;
+			}
+			catch (System.IndexOutOfRangeException)
+			{
+				throw new BTCSyntaxErrorException("Syntax Error: Data Are Incomplete");
+			}
 		}
-	//
+		//
 		public static BTCObject DecodeFromFile(string filepath)
 		{
-			StreamReader sr = new StreamReader(filepath);
-			string file = sr.ReadToEnd();
-			string norm = Normalize(in file);
+			try
+			{
+				StreamReader sr = new StreamReader(filepath);
+				string file = sr.ReadToEnd();
+				string norm = Normalize(in file);
 
-			int i = 0;
-			BTCObject rObj = ParseObject(ref i, in norm);
-			
-			return rObj;
+				int i = 0;
+				BTCObject rObj = ParseObject(ref i, in norm);
+				
+				return rObj;
+			}
+			catch (System.IndexOutOfRangeException)
+			{
+				throw new BTCSyntaxErrorException("Syntax Error: Data in File are Incomplete");
+			}
 		}
+		//
 		public static string Encode(BTCObject obj, bool nicelyFormatted = false)
 		{
 			string encoded;
@@ -160,6 +176,7 @@ namespace BTC
 
 			return encoded;
 		}
+		//
 		public static void EncodeIntoFile(BTCObject obj, string filepath, bool nicelyFormatted = false)
 		{
 			string encoded;

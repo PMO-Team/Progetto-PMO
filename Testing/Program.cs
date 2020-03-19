@@ -49,7 +49,7 @@ namespace Testing
 		    string file = sr.ReadToEnd();
 		    string norm = BTCParser.Normalize(in file);
             Console.WriteLine(norm);
-            Console.Write(norm[32]); 
+            /*Console.Write(norm[32]); */
             
             try
             {
@@ -59,8 +59,8 @@ namespace Testing
                 myObject.Add("gfhjk", new BTCString("WTF"));
 
                 Console.WriteLine(myObject.Encode());
-                //BTCParser.EncodeIntoFile(myObject,
-                //    System.AppDomain.CurrentDomain.BaseDirectory + "../../../../generated.btc", true);
+                BTCParser.EncodeIntoFile(myObject,
+                    System.AppDomain.CurrentDomain.BaseDirectory + "../../../../generated.btc", true);
             }
             catch (Exception e)
             {

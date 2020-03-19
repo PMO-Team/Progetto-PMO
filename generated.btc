@@ -1,5 +1,6 @@
 (
 	@swear > "WTF"
-	@wtf > "che vor dire"
+	@wtf (> "che vor dire"
 	@understood > false
+	@gfhjk > "WTF"
 )
