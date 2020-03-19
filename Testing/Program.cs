@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using BTC;
 
 namespace Testing
@@ -37,18 +38,31 @@ namespace Testing
             BTCParser.EncodeIntoFile(mObj,
                 System.AppDomain.CurrentDomain.BaseDirectory + "../../../../generated.btc", true);*/
 
+            
+            
+            
+            
+            
+            
+            
+            StreamReader sr = new StreamReader(System.AppDomain.CurrentDomain.BaseDirectory + "../../../../generated.btc");
+		    string file = sr.ReadToEnd();
+		    string norm = BTCParser.Normalize(in file);
+            Console.WriteLine(norm);
+            Console.Write(norm[32]); 
+            
             try
             {
-                BTCObject myObject = BTCParser.ParseFromFile(System.AppDomain.CurrentDomain.BaseDirectory + 
+                BTCObject myObject = BTCParser.DecodeFromFile(System.AppDomain.CurrentDomain.BaseDirectory + 
                                     "../../../../generated.btc");
-
+                
                 myObject.Add("gfhjk", new BTCString("WTF"));
 
                 Console.WriteLine(myObject.Encode());
                 //BTCParser.EncodeIntoFile(myObject,
                 //    System.AppDomain.CurrentDomain.BaseDirectory + "../../../../generated.btc", true);
             }
-            catch (BTCSyntaxErrorException e)
+            catch (Exception e)
             {
                 Console.WriteLine(e.Message);
             }

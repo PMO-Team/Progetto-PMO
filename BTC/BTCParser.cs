@@ -4,202 +4,151 @@ namespace BTC
 {
 	public class BTCParser
 	{
-		// Parsing Utilities
-		private static BTCObject ParseObject(in string str)
+		// Checks if a character is a padding character
+		private static bool IsPadding(char c)
 		{
-			BTCObject mObj;
-
-			int i = 0;
-			mObj = ParseObject(ref i, in str);
-
-			return mObj;
+			return ((c == ' ') || (c == '\t') || (c == '\r') || (c == '\n'));
 		}
+		//
+		private static bool IsTag(char c)
+		{
+			return (((c >= 'a') && (c <= 'z')) || ((c >= 'A') && (c <= 'Z')) || (c == '_') || (c == '-'));
+		}
+		// Normalize the string (created for network usage) [O(n)]
+		public static string Normalize(in string str)
+		{
+			string normalized = "";
+			bool mLock = false;
+			
+			for (int i = 0; i < str.Length; i++)
+			{
+				if (mLock)
+				{
+					if (str[i] == '\"')
+						mLock = false;
+					normalized += str[i];
+				}
+				else
+				{
+					if (str[i] == '\"')
+					{
+						mLock = true;
+						normalized += str[i];
+					}
+					else
+						if (!IsPadding(str[i]))
+							normalized += str[i];
+				}
+			}
+			
+			return normalized;
+		}
+		
+		// Parsing utils
 		private static BTCObject ParseObject(ref int i, in string str)
 		{
 			BTCObject mObj = new BTCObject();
 
-			if (str[i] != '(')
-				throw new BTCSyntaxErrorException("Error at character: " + i);
-
-			for (i += 1; (i < str.Length) && (str[i] != ')'); i++)
+			for (i += 1; str[i] != ')'; )
 			{
 				ParseElement(ref i, in str, ref mObj);
 			}
 
 			return mObj;
 		}
-		
-		// TODO LISTS
-		private static BTCList ParseList(in string str)
-		{
-			BTCList mList;
-
-			int i = 0;
-			mList = ParseList(ref i, in str);
-			
-			return mList;
-		}
+	//
 		private static BTCList ParseList(ref int i, in string str)
 		{
 			BTCList mList = new BTCList();
-			
-			if (str[i] != '[')
-				throw new BTCSyntaxErrorException("Error at character: " + i);
 
-			for (; (i < str.Length) && (str[i] != ']'); i++)
+			for (i += 1; str[i] != ']'; )
 			{
 				ParseItem(ref i, in str, ref mList);
 			}
 
 			return mList;
 		}
-		
-		// Check if the character is a padding character
-		private static bool IsPadding(char c)
+		//
+		private static void ParseElement(ref int i, in string str, ref BTCObject obj)
 		{
-			return ((c == ' ') || (c == '\t') || (c == '\r') || (c == '\n'));
-		}
-		// Check if the character is a valid tag character
-		private static bool IsValidTag(char c)
-		{
-			return (((c >= 'a') && (c <= 'z')) || ((c >= 'A') || (c <= 'Z')));
-		}
-		// Check if the character is a valid number character
-		private static bool IsNumber(char c)
-		{
-			return (((c >= '0') && (c <= '9')) || (c == '-') || (c == '.'));
-		}
-		// Parse a string
-		private static BTCString ParseString(ref int i, in string str)
-		{
-			string value = "";
-			for (i += 1; (i < str.Length) && (str[i] != '\"') ; i++)
-			{
-				value += str[i];
-			}
-
-			if (i < str.Length)
-				return new BTCString(value);
-			else
-				throw new BTCSyntaxErrorException("Error at character: " + i);
-		}
-		// Parse a number
-		private static BTCNumber ParseNumber(ref int i, in string str)
-		{
-			string value = "";
-			double val;
-			for (; (i < str.Length) && (str[i] != '\"') ; i++)
-			{
-				value += str[i];
-			}
-
-			if (i < str.Length)
-				if (double.TryParse(value, out val))
-					return new BTCNumber(val);
-				else
-					throw new BTCSyntaxErrorException("Error at character: " + i);
-			else
-				throw new BTCSyntaxErrorException("Error at character: " + i);
-		}
-		// Parse a boolean
-		private static BTCBool ParseBool(ref int i, in string str)
-		{
-			string value = "";
-			for (; (i < str.Length) && (str[i] != '\"') ; i++)
-			{
-				value += str[i];
-			}
-
-			if (i < str.Length)
-				if (value == "true")
-					return new BTCBool(true);
-				else if (value == "false")
-					return new BTCBool(false);
-				else
-					throw new BTCSyntaxErrorException("Error at character: " + i);
-			else
-				throw new BTCSyntaxErrorException("Error at character: " + i);
-		}
-		// Parse an element in an object
-		private static void ParseElement(ref int i, in string str, ref BTCObject rObj)
-		{
+			if (str[i] != '@')
+				throw new BTCSyntaxErrorException("A:" + i);
+			
 			string tag = "";
-			for (i += 1; (i < str.Length) && (IsPadding(str[i])); i++);
-			if (i < str.Length)
-			{
-				if (str[i] == '@')
-				{
-					// Building the TAG string
-					for (i += 1; (i < str.Length) && (IsValidTag(str[i])); i++)
-						tag += str[i];
-					// Skipping padding characters
-					for (; (i < str.Length) && (IsPadding(str[i])); i++);
-					if (i < str.Length)
-					{
-						if (str[i] == '>')
-						{
-							// Skipping padding characters
-							for (i += 1; (i < str.Length) && (IsPadding(str[i])); i++);
-							// Checking for value
-							if (i < str.Length)
-							{
-								if (IsNumber(str[i]))
-								{
-									BTCNumber mNum = ParseNumber(ref i, in str);
-
-									rObj.Add(tag, mNum);
-								}
-								else if ((str[i] == 't') || (str[i] == 'f'))
-								{
-									BTCBool mBool = ParseBool(ref i, in str);
-
-									rObj.Add(tag, mBool);
-								}
-								else if (str[i] == '\"')
-								{
-									BTCString mString = ParseString(ref i, in str);
-
-									rObj.Add(tag, mString);
-								}
-								else
-									throw new BTCSyntaxErrorException("Error at character: " + i);
-							}
-						}
-						else
-							throw new BTCSyntaxErrorException("Error at character: " + i);
-					}
-					
-				}
-				else if (str[i] == ')')
-					return;
-				else
-					throw new BTCSyntaxErrorException("Error at character: " + i);
-			}
+			for (i += 1; IsTag(str[i]) ; i++)
+				tag += str[i];
+			
+			if ((tag.Length == 0) || (str[i] != '>'))
+				throw new BTCSyntaxErrorException("B:" + i);
+			
+			i += 1;
+			if (str[i] == '(')
+				obj.Add(tag, ParseObject(ref i, in str));
+			else if (str[i] == '[')
+				obj.Add(tag, ParseList(ref i, in str));
+			else if (str[i] == '\"')
+				obj.Add(tag, new BTCString(ParseString(ref i, in str)));
 			else
-				throw new BTCSyntaxErrorException("Error at character: " + i);
-		}
-		private static void ParseItem(ref int i, in string str, ref BTCList rList)
-		{
+			{
+				string value = "";
+				for (; (str[i] != '@') || (str[i] != ')'); i++) // ???
+					value += str[i];
+				
+				if (value.Length == 0)
+					throw new BTCSyntaxErrorException("C:" + i);
+				
+				double dValue;
+				bool bValue;
 
+				if (double.TryParse(value, out dValue))
+					obj.Add(tag, new BTCNumber(dValue));
+				else if (bool.TryParse(value, out bValue))
+					obj.Add(tag, new BTCBool(bValue));
+				else 
+					throw new BTCSyntaxErrorException("D: " + i);
+			}
+		}
+	//
+		private static void ParseItem(ref int i, in string str, ref BTCList list)
+		{
+			
+		}
+		//
+		private static string ParseString(ref int i, in  string str)
+		{
+			string ret = "";
+			for (i += 1; str[i] != '\"'; i++)
+				if (str[i] == '\\')
+					ret += str[i++];
+				else
+					ret += str[i];
+
+			i++;
+			return ret;
 		}
 
 		// Public Parsing Methods
-		public static BTCObject Parse(string str)
+		public static BTCObject Decode(string str)
 		{
-			BTCObject rObj = ParseObject(in str);
+			string norm = Normalize(in str);
 			
+			int i = 0;
+			BTCObject rObj = ParseObject(ref i, in norm);
+
 			return rObj;
 		}
-		public static BTCObject ParseFromFile(string filepath)
+	//
+		public static BTCObject DecodeFromFile(string filepath)
 		{
 			StreamReader sr = new StreamReader(filepath);
-			string wholeFile = sr.ReadToEnd();
+			string file = sr.ReadToEnd();
+			string norm = Normalize(in file);
 
-			BTCObject rObj = ParseObject(in wholeFile);
+			int i = 0;
+			BTCObject rObj = ParseObject(ref i, in norm);
 			
 			return rObj;
 		}
-
 		public static string Encode(BTCObject obj, bool nicelyFormatted = false)
 		{
 			string encoded;
