@@ -1,6 +1,18 @@
 (
-	@swear > "WTF"
-	@wtf (> "che vor dire"
-	@understood > false
-	@gfhjk > "WTF"
+	@player > "simo"
+	@pg-name > "Kirox"
+	@pg-level > 3
+	@inventory > [
+		"IDK"|
+		"Why"|
+		"this"|
+		false|
+		"work"
+	]
+	@weapon > (
+				@weapon-type > "bow"
+				@weapon-range > 64
+				@weapon-destroyed > false
+			)
+	@best-weapon > "Sternefocle"
 )

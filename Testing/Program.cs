@@ -8,6 +8,9 @@ namespace Testing
     {
         static void Main(string[] args)
         {
+            string path = System.AppDomain.CurrentDomain.BaseDirectory + "../../../../generated.btc";
+
+
             /*BTCObject mObj = new BTCObject();
             mObj.Add("player", new BTCString("simo"));
             mObj.Add("pg-name", new BTCString("Kirox"));
@@ -21,7 +24,7 @@ namespace Testing
             IBTCData item = new BTCObject();
             ((BTCObject) item).Add("name", new BTCString("Kirinite"));
             ((BTCObject) item).Add("description", new BTCString("A fantasy mineral"));
-            items.Add(item);
+            items.Add((BTCObject) item);
             items.Add(new BTCString("Health Potion (12)"));
             mObj.Add("inventory", items);
             items = new BTCList();
@@ -32,35 +35,17 @@ namespace Testing
             //items.Add()
             ((BTCList) mObj.Tag("inventory")).Add(items);
 
-            Console.WriteLine(BTCParser.Encode(mObj, true));
-            Console.WriteLine("\n\n" + BTCParser.Encode(mObj));
+            BTCParser.EncodeIntoFile(mObj, path, true);*/
             
-            BTCParser.EncodeIntoFile(mObj,
-                System.AppDomain.CurrentDomain.BaseDirectory + "../../../../generated.btc", true);*/
-
-            
-            
-            
-            
-            
-            
-            
-            StreamReader sr = new StreamReader(System.AppDomain.CurrentDomain.BaseDirectory + "../../../../generated.btc");
-		    string file = sr.ReadToEnd();
-		    string norm = BTCParser.Normalize(in file);
-            Console.WriteLine(norm);
-            /*Console.Write(norm[32]); */
             
             try
             {
-                BTCObject myObject = BTCParser.DecodeFromFile(System.AppDomain.CurrentDomain.BaseDirectory + 
-                                    "../../../../generated.btc");
+                BTCObject myObject = BTCParser.DecodeFromFile(path);
                 
-                myObject.Add("gfhjk", new BTCString("WTF"));
+                myObject.Add("best-weapon", new BTCString("Sternefocle"));
 
-                Console.WriteLine(myObject.Encode());
-                BTCParser.EncodeIntoFile(myObject,
-                    System.AppDomain.CurrentDomain.BaseDirectory + "../../../../generated.btc", true);
+                Console.WriteLine(BTCParser.Encode(myObject, true));
+                //BTCParser.EncodeIntoFile(myObject, path, true);
             }
             catch (Exception e)
             {
