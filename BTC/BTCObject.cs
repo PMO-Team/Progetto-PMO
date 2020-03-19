@@ -31,9 +31,14 @@ namespace BTC
 		{
 			this.elements.Add(tag, value);
 		}
+		
 		public void Remove(string tag)
 		{
 			this.elements.Remove(tag);
+		}
+		public int Count()
+		{
+			return this.elements.Count;
 		}
 
 		// Guarantee exception safe
