@@ -42,10 +42,10 @@ namespace Testing
             {
                 BTCObject myObject = BTCParser.DecodeFromFile(path);
                 
-                myObject.Add("best-weapon", new BTCString("Sternefocle"));
+                //myObject.Add("best-weapon", new BTCString("Sternefocle"));
 
-                Console.WriteLine(BTCParser.Encode(myObject, true));
-                //BTCParser.EncodeIntoFile(myObject, path, true);
+                //Console.WriteLine(BTCParser.Normalize(BTCParser.Encode(myObject, true)));
+                BTCParser.EncodeIntoFile(myObject, path, true);
             }
             catch (Exception e)
             {

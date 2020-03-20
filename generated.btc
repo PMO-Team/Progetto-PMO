@@ -3,16 +3,30 @@
 	@pg-name > "Kirox"
 	@pg-level > 3
 	@inventory > [
-		"IDK"|
-		"Why"|
-		"this"|
-		false|
-		"work"
-	]
+			"IDK" |
+			"Why" |
+			"this" |
+			false |
+			"work" |
+			[
+								12 |
+								"testing" |
+								(
+											@x > [
+										false |
+										true
+									]
+											@y > (
+												@a > 1
+												@b > "that's a try"
+											)
+										)
+							]
+		]
 	@weapon > (
-				@weapon-type > "bow"
-				@weapon-range > 64
-				@weapon-destroyed > false
-			)
+					@weapon-type > "bow"
+					@weapon-range > 64
+					@weapon-destroyed > false
+				)
 	@best-weapon > "Sternefocle"
 )
