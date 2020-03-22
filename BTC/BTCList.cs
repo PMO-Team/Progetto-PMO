@@ -53,7 +53,7 @@ namespace BTC
 			{
 				result += this.elements[i].Encode();
 				if (i != (this.elements.Count - 1))
-					result += "|"; 
+					result += ","; 
 			}
 
 			result += "]";
@@ -64,7 +64,7 @@ namespace BTC
 		{
 			string result = "[\r\n";
 			string sep = "";
-			for (var i = 0; i < (separators - 1); i++)
+			for (var i = 0; i < separators; i++)
 				sep += "\t";
 
 			for (int i = 0; i < this.elements.Count; i++)
@@ -72,7 +72,7 @@ namespace BTC
 				result += sep + "\t";
 				result += this.elements[i].Encode(separators++);
 				if (i != (this.elements.Count - 1))
-					result += " |";
+					result += " ,";
 				result += "\r\n";
 			}
 

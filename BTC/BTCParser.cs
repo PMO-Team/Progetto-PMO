@@ -69,7 +69,7 @@ namespace BTC
 			for (i += 1; str[i] != ']'; )
 			{
 				ParseItem(ref i, in str, ref mList);
-				if (str[i] == '|')
+				if (str[i] == ',')
 					i += 1;
 			}
 			
@@ -132,7 +132,7 @@ namespace BTC
 			else
 			{
 				string value = "";
-				for (; (str[i] != '|') && (str[i] != ']'); i++)
+				for (; (str[i] != ',') && (str[i] != ']'); i++)
 					value += str[i];
 				
 				if (value.Length == 0)
@@ -206,7 +206,7 @@ namespace BTC
 			string encoded;
 
 			if (nicelyFormatted)
-				encoded = obj.Encode(0);
+				encoded = obj.Encode(1);
 			else
 				encoded = obj.Encode();
 
@@ -220,7 +220,7 @@ namespace BTC
 			StreamWriter sw = new StreamWriter(filepath);
 
 			if (nicelyFormatted)
-				encoded = obj.Encode(0);
+				encoded = obj.Encode(1);
 			else
 				encoded = obj.Encode();
 

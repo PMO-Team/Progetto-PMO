@@ -94,7 +94,7 @@ namespace BTC
 
 			foreach (var item in this.elements)
 			{
-				result += sep + "\t";
+				result += sep;
 				result += "@" + item.Key + " > ";
 				result += item.Value.Encode(separators++);
 				result += "\r\n";
