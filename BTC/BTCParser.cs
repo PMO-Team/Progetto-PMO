@@ -155,7 +155,7 @@ namespace BTC
 			string ret = "";
 			for (i += 1; str[i] != '\"'; i++)
 				if (str[i] == '\\')
-					ret += str[i++];
+					throw new BTCSyntaxErrorException("Syntax Error: invalid character at " + 1);
 				else
 					ret += str[i];
 

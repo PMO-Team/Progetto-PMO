@@ -6,6 +6,24 @@ namespace BTC
 		public string Value { get; }
 		public BTCString(string value)
 		{
+			for (int i = 0; i < value.Length; i++)
+				switch (value[i])
+				{
+					case '\r':  
+					case '\n': 
+					case '\t': 
+					case '\"': 
+					//case '\':
+					case '\\': 
+					case '\f': 
+					case '\a': 
+					case '\v': 
+					case '\b': 
+						throw new BTCSyntaxErrorException("Syntax Error: invalid string >> " + value);
+					default:
+						break;
+				}
+			
 			this._value = value;
 		}
 

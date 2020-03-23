@@ -1,21 +1,21 @@
 (
-	@example-text > "come stai?\n\\"
-	@example-numb > 12.345
+	@example-text > "come stai123"
+	@example-numb > 12345
 	@example-obj > (
-		@x > 1
-		@y > false
-		@z > (
-			@a > 2.1
-			@b > "hi"
-			@c > (
-				@k > 3.1
-				@j > [
-					12,
-					1234,
-					false,
-					true
-				]
+			@x > 1
+			@y > false
+			@z > (
+					@a > 21
+					@b > "hi"
+					@c > (
+							@k > 31
+							@j > [
+									12 ,
+									1234 ,
+									false ,
+									true
+								]
+							)
+					)
 			)
-		)
 	)
-)
