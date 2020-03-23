@@ -3,7 +3,7 @@ namespace BTC
 	public class BTCNumber : IBTCData
 	{
 		private double _value;
-		public double Value { get; }
+		public double Value { get { return this._value; } }
 		public BTCNumber(double value)
 		{
 			this._value = value;

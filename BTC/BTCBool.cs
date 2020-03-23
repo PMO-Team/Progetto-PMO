@@ -3,7 +3,7 @@ namespace BTC
 	public class BTCBool : IBTCData
 	{
 		private bool _value;
-		public bool Value { get; }
+		public bool Value { get { return this._value; } }
 		public BTCBool(bool value)
 		{
 			this._value = value;
