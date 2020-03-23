@@ -2,39 +2,53 @@ namespace BTC
 {
 	public class BTCString : IBTCData
 	{
-		private string _value;
-		public string Value { get; }
+		private string value;
+		public string Value { get { return this.value; } }
 		public BTCString(string value)
 		{
-			for (int i = 0; i < value.Length; i++)
-				switch (value[i])
-				{
-					case '\r':  
-					case '\n': 
-					case '\t': 
-					case '\"': 
-					//case '\':
-					case '\\': 
-					case '\f': 
-					case '\a': 
-					case '\v': 
-					case '\b': 
-						throw new BTCSyntaxErrorException("Syntax Error: invalid string >> " + value);
-					default:
-						break;
-				}
-			
-			this._value = value;
+			this.value = value;
 		}
 
 		public string Encode()
 		{
-			return ("\"" + this._value + "\"");
+			string ret = "\"";
+
+			for (int i = 0; i < this.value.Length; i++)
+			{
+				switch (this.value[i])
+					{
+						case '\n':
+							ret += "\\n";
+							break;
+						case '\'':
+							ret += "\\\'";
+							break;
+						case '\"':
+							ret += "\\\"";
+							break;
+						case '\\':
+							ret += "\\\\";
+							break;
+						case '\r':
+							ret += "\\r";
+							break;
+						case '\t':
+							ret += "\\t";
+							break;
+						default:
+							ret += this.value[i];
+							break;
+					}
+			}
+			
+			ret += '\"';
+
+			return ret;
 		}
 
 		public string Encode(int separators)
 		{
-			return ("\"" + this._value + "\"");
+			return ("\"" + this.value + "\"");
 		}
 	}
 }

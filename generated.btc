@@ -1,5 +1,5 @@
 (
-	@example-text > "come stai123"
+	@example-text > "come s\"tai123"
 	@example-numb > 12345
 	@example-obj > (
 			@x > 1
