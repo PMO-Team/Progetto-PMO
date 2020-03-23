@@ -12,7 +12,7 @@ namespace BTC
 		//
 		private static bool IsTag(char c)
 		{
-			return (((c >= 'a') && (c <= 'z')) || ((c >= 'A') && (c <= 'Z')) || (c == '_') || (c == '-'));
+			return (((c >= 'a') && (c <= 'z')) || ((c >= 'A') && (c <= 'Z')) || (c == '-'));
 		}
 		// Normalize the string (created for network usage) [O(n)]
 		public static string Normalize(in string str)
@@ -25,7 +25,8 @@ namespace BTC
 				if (mLock)
 				{
 					if (str[i] == '\"')
-						mLock = false;
+						if (str[i - 1] != '\\')
+							mLock = false;
 					normalized += str[i];
 				}
 				else
@@ -154,12 +155,39 @@ namespace BTC
 		{
 			string ret = "";
 			for (i += 1; str[i] != '\"'; i++)
+			{
 				if (str[i] == '\\')
-					ret += str[i++];
+				{
+					switch (str[i + 1])
+					{
+						case 'n':
+							ret += '\n';
+							break;
+						case '\'':
+							ret += '\'';
+							break;
+						case '\"':
+							ret += '\"';
+							break;
+						case '\\':
+							break;
+						case 'r':
+							ret += '\r';
+							break;
+						case 't':
+							ret += '\t';
+							break;
+						default:
+							throw new BTCSyntaxErrorException("Syntax Error: invalid special character at " + i);
+					}
+					i += 1;
+				}
 				else
 					ret += str[i];
+			}
 
-			i++;
+			i += 1; // Next character after \"
+			
 			return ret;
 		}
 
@@ -170,7 +198,7 @@ namespace BTC
 			try
 			{
 				string norm = Normalize(in str);
-				
+
 				int i = 0;
 				BTCObject rObj = ParseObject(ref i, in norm);
 
@@ -189,6 +217,8 @@ namespace BTC
 				StreamReader sr = new StreamReader(filepath);
 				string file = sr.ReadToEnd();
 				string norm = Normalize(in file);
+
+				//System.Console.WriteLine(norm);
 
 				int i = 0;
 				BTCObject rObj = ParseObject(ref i, in norm);

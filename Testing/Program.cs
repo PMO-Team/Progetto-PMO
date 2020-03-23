@@ -44,7 +44,9 @@ namespace Testing
                 
                 myObject.Add("new-message", new BTCString("It's a new message"));
 
-                Console.WriteLine(BTCParser.Encode(myObject, true));
+                Console.WriteLine(((BTCString) myObject.Tag("example-text")).Value);
+
+                //Console.WriteLine(BTCParser.Encode(myObject, true));
                 //BTCParser.EncodeIntoFile(myObject, path, true);
             }
             catch (Exception e)
