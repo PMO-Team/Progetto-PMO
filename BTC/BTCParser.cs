@@ -113,9 +113,9 @@ namespace BTC
 				double dValue;
 				bool bValue;
 
-				if (double.TryParse(value, out dValue))
+				if (BTCUtil.TryParse(value, out dValue))
 					obj.Add(tag, new BTCNumber(dValue));
-				else if (bool.TryParse(value, out bValue))
+				else if (BTCUtil.TryParse(value, out bValue))
 					obj.Add(tag, new BTCBool(bValue));
 				else 
 					throw new BTCSyntaxErrorException("Syntax Error: Invalid Element Value;\r\nFound At: " + i);
@@ -141,10 +141,10 @@ namespace BTC
 				
 				double dValue;
 				bool bValue;
-
-				if (double.TryParse(value, out dValue))
+				
+				if (BTCUtil.TryParse(value, out dValue))
 					list.Add(new BTCNumber(dValue));
-				else if (bool.TryParse(value, out bValue))
+				else if (BTCUtil.TryParse(value, out bValue))
 					list.Add(new BTCBool(bValue));
 				else 
 					throw new BTCSyntaxErrorException("Syntax Error: invalid item value;\r\nFound At: " + i);
@@ -217,8 +217,6 @@ namespace BTC
 				StreamReader sr = new StreamReader(filepath);
 				string file = sr.ReadToEnd();
 				string norm = Normalize(in file);
-
-				//System.Console.WriteLine(norm);
 
 				int i = 0;
 				BTCObject rObj = ParseObject(ref i, in norm);

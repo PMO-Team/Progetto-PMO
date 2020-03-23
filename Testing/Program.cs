@@ -44,10 +44,11 @@ namespace Testing
                 
                 myObject.Add("new-message", new BTCString("It's a new message"));
 
-                Console.WriteLine(((BTCString) myObject.Tag("example-text")).Value);
+                Console.WriteLine(((BTCNumber) (((BTCObject) ((BTCObject) myObject.Tag("example-obj")).Tag("z")).Tag("a"))).Value);
 
-                //Console.WriteLine(BTCParser.Encode(myObject, true));
-                //BTCParser.EncodeIntoFile(myObject, path, true);
+//                Console.WriteLine(((BTCString) myObject.Tag("example-text")).Encode());
+                Console.WriteLine(BTCParser.Encode(myObject, true));
+//                BTCParser.EncodeIntoFile(myObject, path, true);
             }
             catch (Exception e)
             {
