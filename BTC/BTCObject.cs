@@ -110,20 +110,23 @@ namespace BTC
 		{
 			string result = "(\r\n";
 			string sep = "";
+			string closingSep = "";
 			
 			// Set-up the separotor string
 			for (int i = 0; i < separators; i++)
 				sep += "\t";
+			for (int i = 1; i < separators; i++)
+				closingSep += "\t";
 
 			foreach (var item in this.elements)
 			{
 				result += sep;
 				result += "@" + item.Key + " > ";
-				result += item.Value.Encode(separators++);
+				result += item.Value.Encode(separators + 1);
 				result += "\r\n";
 			}
 
-			result += sep + ")";
+			result += closingSep + ")";
 
 			return result;
 		}

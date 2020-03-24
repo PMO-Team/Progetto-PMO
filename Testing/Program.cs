@@ -10,7 +10,6 @@ namespace Testing
         {
             string path = System.AppDomain.CurrentDomain.BaseDirectory + "../../../../generated.btc";
 
-
             /*BTCObject mObj = new BTCObject();
             mObj.Add("player", new BTCString("simo"));
             mObj.Add("pg-name", new BTCString("Kirox"));
@@ -37,18 +36,17 @@ namespace Testing
 
             BTCParser.EncodeIntoFile(mObj, path, true);*/
             
-            
             try
             {
                 BTCObject myObject = BTCParser.DecodeFromFile(path);
                 
                 myObject.Add("new-message", new BTCString("It's a new message"));
 
-                Console.WriteLine(((BTCNumber) (((BTCObject) ((BTCObject) myObject.Tag("example-obj")).Tag("z")).Tag("a"))).Value);
+                //Console.WriteLine(((BTCNumber) (((BTCObject) ((BTCObject) myObject.Tag("example-obj")).Tag("z")).Tag("a"))).Value);
 
-//                Console.WriteLine(((BTCString) myObject.Tag("example-text")).Encode());
+                Console.WriteLine(((BTCString) myObject.Tag("example-text")).Value);
                 Console.WriteLine(BTCParser.Encode(myObject, true));
-//                BTCParser.EncodeIntoFile(myObject, path, true);
+                BTCParser.EncodeIntoFile(myObject, path, true);
             }
             catch (Exception e)
             {
