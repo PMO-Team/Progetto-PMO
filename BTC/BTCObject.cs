@@ -11,31 +11,54 @@ namespace BTC
 			this.elements = new Dictionary<string, IBTCData>();
 		}
 
+		// If TAG already exists, the new value will be ignored
 		public void Add(string tag, BTCNumber value)
 		{
-			this.elements.Add(tag, value);
+			try
+			{
+				this.elements.Add(tag, value);
+			}
+			catch (System.ArgumentException) {}
 		}
 		public void Add(string tag, BTCString value)
 		{
-			this.elements.Add(tag, value);
+			try
+			{
+				this.elements.Add(tag, value);
+			}
+			catch (System.ArgumentException) {}
 		}
 		public void Add(string tag, BTCBool value)
 		{
-			this.elements.Add(tag, value);
+			try
+			{
+				this.elements.Add(tag, value);
+			}
+			catch (System.ArgumentException) {}
 		}
 		public void Add(string tag, BTCObject value)
 		{
-			this.elements.Add(tag, value);
+			try
+			{
+				this.elements.Add(tag, value);
+			}
+			catch (System.ArgumentException) {}
 		}
 		public void Add(string tag, BTCList value)
 		{
-			this.elements.Add(tag, value);
+			try
+			{
+				this.elements.Add(tag, value);
+			}
+			catch (System.ArgumentException) {}
 		}
 		
+		// Remove the element with the corresponding TAG
 		public void Remove(string tag)
 		{
 			this.elements.Remove(tag);
 		}
+		// Return the numbers of elements (this element only)
 		public int Count()
 		{
 			return this.elements.Count;
