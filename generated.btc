@@ -1,22 +1,23 @@
 (
-	@example-text > "come s\"\tai123"
-	@example-numb > 1.2345
-	@example-obj > (
-		@x > 1
-		@y > false
-		@z > (
-			@a > 21.1
-			@b > "hi"
-			@c > (
-				@k > 31
-				@j > [
-					1221 ,
-					12.34 ,
-					false ,
-					true
-				]
-			)
-		)
+	@player > "simo"
+	@pg-name > "Kirox"
+	@pg-level > 3
+	@weapon > (
+		@weapon-type > "bow"
+		@weapon-range > 64
+		@weapon-destroyed > false
 	)
-	@new-message > "It\'s a new message"
+	@inventory > [
+		(
+			@name > "Kirinite"
+			@description > "A fantasy mineral"
+		) ,
+		"Health Potion (12)" ,
+		[
+			1 ,
+			2 ,
+			3 ,
+			4
+		]
+	]
 )

@@ -10,7 +10,7 @@ namespace Testing
         {
             string path = System.AppDomain.CurrentDomain.BaseDirectory + "../../../../generated.btc";
 
-            /*BTCObject mObj = new BTCObject();
+            BTCObject mObj = new BTCObject();
             mObj.Add("player", new BTCString("simo"));
             mObj.Add("pg-name", new BTCString("Kirox"));
             mObj.Add("pg-level", new BTCNumber(3));
@@ -31,27 +31,10 @@ namespace Testing
             items.Add(new BTCNumber(2));
             items.Add(new BTCNumber(3));
             items.Add(new BTCNumber(4));
-            //items.Add()
             ((BTCList) mObj.Tag("inventory")).Add(items);
 
-            BTCParser.EncodeIntoFile(mObj, path, true);*/
+            BTCParser.EncodeIntoFile(mObj, path, true);
             
-            try
-            {
-                BTCObject myObject = BTCParser.DecodeFromFile(path);
-                
-                myObject.Add("new-message", new BTCString("It's a new message"));
-
-                //Console.WriteLine(((BTCNumber) (((BTCObject) ((BTCObject) myObject.Tag("example-obj")).Tag("z")).Tag("a"))).Value);
-
-                Console.WriteLine(((BTCString) myObject.Tag("example-text")).Value);
-                Console.WriteLine(BTCParser.Encode(myObject, true));
-                BTCParser.EncodeIntoFile(myObject, path, true);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-            }
         }
     }
 }
