@@ -121,7 +121,7 @@ namespace BTC
 					throw new BTCSyntaxErrorException("Syntax Error: Invalid Element Value;\r\nFound At: " + i);
 			}
 		}
-	//
+		//
 		private static void ParseItem(ref int i, in string str, ref BTCList list)
 		{
 			if (str[i] == '(')

@@ -64,19 +64,24 @@ namespace BTC
 		{
 			string result = "[\r\n";
 			string sep = "";
-			for (var i = 0; i < separators; i++)
+			string closingSep = "";
+			
+			// Set-up the separotor string
+			for (int i = 0; i < separators; i++)
 				sep += "\t";
+			for (int i = 1; i < separators; i++)
+				closingSep += "\t";
 
 			for (int i = 0; i < this.elements.Count; i++)
 			{
-				result += sep + "\t";
-				result += this.elements[i].Encode(separators++);
+				result += sep;
+				result += this.elements[i].Encode(separators + 1);
 				if (i != (this.elements.Count - 1))
 					result += " ,";
 				result += "\r\n";
 			}
 
-			result += sep + "]";
+			result += closingSep + "]";
 
 			return result;
 		}
