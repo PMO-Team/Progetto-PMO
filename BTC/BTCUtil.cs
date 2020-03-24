@@ -4,7 +4,7 @@ namespace BTC
 	{
 		public static bool TryParse(in string s, out double o)
 		{
-			string val = string.Join(",", s.Split('.'));;
+			string val = string.Join(",", s.Split('.'));
 
 			return double.TryParse(val, out o);
 		}

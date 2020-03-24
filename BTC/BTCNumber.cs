@@ -20,11 +20,11 @@ namespace BTC
 
 		public string Encode()
 		{
-			return this._value.ToString();
+			return string.Join(".", this._value.ToString().Split(','));
 		}
 		public string Encode(int separators)
 		{
-			return this._value.ToString();
+			return string.Join(".", this._value.ToString().Split(','));
 		}
 	}
 }
