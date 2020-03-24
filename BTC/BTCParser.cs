@@ -216,6 +216,7 @@ namespace BTC
 			{
 				StreamReader sr = new StreamReader(filepath);
 				string file = sr.ReadToEnd();
+				sr.Close();
 				string norm = Normalize(in file);
 
 				int i = 0;
