@@ -14,36 +14,6 @@ namespace BTC
 		{
 			return (((c >= 'a') && (c <= 'z')) || ((c >= 'A') && (c <= 'Z')) || (c == '-'));
 		}
-		// Normalize the string (created for network usage) [O(n)]
-		public static string Normalize(in string str)
-		{
-			string normalized = "";
-			bool mLock = false;
-			
-			for (int i = 0; i < str.Length; i++)
-			{
-				if (mLock)
-				{
-					if (str[i] == '\"')
-						if (str[i - 1] != '\\')
-							mLock = false;
-					normalized += str[i];
-				}
-				else
-				{
-					if (str[i] == '\"')
-					{
-						mLock = true;
-						normalized += str[i];
-					}
-					else
-						if (!IsPadding(str[i]))
-							normalized += str[i];
-				}
-			}
-			
-			return normalized;
-		}
 		
 		// Parsing utils
 		private static BTCObject ParseObject(ref int i, in string str)
@@ -62,7 +32,19 @@ namespace BTC
 
 			return mObj;
 		}
-	//
+		//
+		private static bool TryParse(in string s, out double o)
+		{
+			string val = string.Join(",", s.Split('.'));
+
+			return double.TryParse(val, out o);
+		}
+		//
+		private static bool TryParse(in string s, out bool o)
+		{
+			return (bool.TryParse(s, out o));
+		}
+		//
 		private static BTCList ParseList(ref int i, in string str)
 		{
 			BTCList mList = new BTCList();
@@ -113,9 +95,9 @@ namespace BTC
 				double dValue;
 				bool bValue;
 
-				if (BTCUtil.TryParse(value, out dValue))
+				if (TryParse(value, out dValue))
 					obj.Add(tag, new BTCNumber(dValue));
-				else if (BTCUtil.TryParse(value, out bValue))
+				else if (TryParse(value, out bValue))
 					obj.Add(tag, new BTCBool(bValue));
 				else 
 					throw new BTCSyntaxErrorException("Syntax Error: Invalid Element Value;\r\nFound At: " + i);
@@ -142,9 +124,9 @@ namespace BTC
 				double dValue;
 				bool bValue;
 				
-				if (BTCUtil.TryParse(value, out dValue))
+				if (TryParse(value, out dValue))
 					list.Add(new BTCNumber(dValue));
-				else if (BTCUtil.TryParse(value, out bValue))
+				else if (TryParse(value, out bValue))
 					list.Add(new BTCBool(bValue));
 				else 
 					throw new BTCSyntaxErrorException("Syntax Error: invalid item value;\r\nFound At: " + i);
@@ -189,6 +171,37 @@ namespace BTC
 			i += 1; // Next character after \"
 			
 			return ret;
+		}
+
+		// Normalize the string (created for network usage) [O(n)]
+		public static string Normalize(in string str)
+		{
+			string normalized = "";
+			bool mLock = false;
+			
+			for (int i = 0; i < str.Length; i++)
+			{
+				if (mLock)
+				{
+					if (str[i] == '\"')
+						if (str[i - 1] != '\\')
+							mLock = false;
+					normalized += str[i];
+				}
+				else
+				{
+					if (str[i] == '\"')
+					{
+						mLock = true;
+						normalized += str[i];
+					}
+					else
+						if (!IsPadding(str[i]))
+							normalized += str[i];
+				}
+			}
+			
+			return normalized;
 		}
 
 		// Public Parsing Methods
