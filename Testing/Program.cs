@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO;
 using BTC;
 
 namespace Testing
@@ -32,9 +31,23 @@ namespace Testing
             items.Add(new BTCNumber(3));
             items.Add(new BTCNumber(4));
             ((BTCList) mObj.Tag("inventory")).Add(items);
+			mObj.Add("empty-test", new BTCObject());
 
             BTCParser.EncodeIntoFile(mObj, path, true);
             
+
+            try
+            {
+                BTCObject parsed = BTCParser.DecodeFromFile(path);
+
+                parsed.Add("n-e", new BTCString("new entry"));
+
+                BTCParser.EncodeIntoFile(parsed, path, true);
+            }
+            catch (BTCSyntaxErrorException e)
+            {
+                Console.WriteLine(e.Message);
+            }
         }
     }
 }

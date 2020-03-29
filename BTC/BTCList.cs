@@ -4,45 +4,99 @@ namespace BTC
 {
 	public class BTCList : IBTCData
 	{
+		/**
+		 * Since all the children of BTCObject are ITEMs (only value: it's
+		 * different from ELEMENT because ITEM is not a pair,
+		 * so it doesn't have a TAG), a List is the most suitable object.
+		 */
 		private List<IBTCData> elements;
 
+		/**
+		 * @fn			BTCList()
+		 *
+		 * @brief		Constructor
+		 */
 		public BTCList()
 		{
 			this.elements = new List<IBTCData>();
 		}
 
+		/**
+		 * @fn			void Add(BTCString i)
+		 * @brief		Insert the new item in the list
+		 */
 		public void Add(BTCString i)
 		{
 			this.elements.Add(i);
 		}
+		/**
+		 * @fn			void Add(BTCNumber i)
+		 * @brief		Insert the new item in the list
+		 */
 		public void Add(BTCNumber i)
 		{
 			this.elements.Add(i);
 		}
+		/**
+		 * @fn			void Add(BTCBool i)
+		 * @brief		Insert the new item in the list
+		 */
 		public void Add(BTCBool i)
 		{
 			this.elements.Add(i);
 		}
+		/**
+		 * @fn			void Add(BTCObject i)
+		 * @brief		Insert the new item in the list
+		 */
 		public void Add(BTCObject i)
 		{
 			this.elements.Add(i);
 		}
+		/**
+		 * @fn			void Add(BTCList i)
+		 * @brief		Insert the new item in the list
+		 */
 		public void Add(BTCList i)
 		{
 			this.elements.Add(i);
 		}
-		
+
+		/**
+		 * @fn			void RemoveAt(int index)
+		 * @brief		Remove the item at the corresponding index
+		 */
 		public void RemoveAt(int index)
 		{
 			this.elements.RemoveAt(index);
 		}
+		/**
+		 * @fn			int Count()
+		 * @brief		Return the number of items in the list
+		 */
 		public int Count()
 		{
 			return this.elements.Count;
 		}
+		/**
+		 * @fn			IBTCData At(int index)
+		 * @brief		Return the IBTCData instance contained at 'index'.
+		 * 				If 'index' does not exist, will be returned 'null' value.
+		 */
 		public IBTCData At(int index)
 		{
-			return this.elements[index];
+			IBTCData instance;
+
+			try
+			{
+				instance = this.elements[index];
+			}
+			catch (System.ArgumentOutOfRangeException)
+			{
+				instance = null;
+			}
+
+			return instance;
 		}
 
 		public string Encode()

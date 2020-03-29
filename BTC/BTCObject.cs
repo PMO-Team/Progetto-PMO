@@ -2,69 +2,157 @@ using System.Collections.Generic;
 
 namespace BTC
 {
+	/**
+	 * @class			BTCObject
+	 * @implements		IBTCData
+	 *
+	 * @brief			Class for containing TAGs and ELEMENTs
+	 * @details			This class rappresent the data tree structure,
+	 * 					where each element is associated with a UNIQUE STRING TAG
+	 */
 	public class BTCObject : IBTCData
 	{
+		/**
+		 * Since each element is a pair of a TAG and it's relative VALUE,
+		 * the using of Dictionary data structure (Map in many other languages)
+		 * suited very well for this purpose.
+		 * The main reason for using a Map is that every BTCObject implements IBTCData,
+		 * so we can see a BTCObject as a list of pairs <string, IBTCData> (since TAGs are strings). 
+		 */
 		private Dictionary<string, IBTCData> elements;
 
+		/**
+		 * @fn			BTCObject()
+		 *
+		 * @brief		Constructor
+		 */
 		public BTCObject()
 		{
 			this.elements = new Dictionary<string, IBTCData>();
 		}
 
-		// If TAG already exists, the new value will be ignored
+		/**
+		 * @fn			bool IsTag(in string tagName)
+		 * @brief		This method is used for detect if a given string is
+		 * 				well formatted as TAG BTC SPEC says  
+		 */
+		public static bool IsTag(in string tagName)
+		{
+			bool correct = true;
+			
+			for (int i = 0; i < tagName.Length; i++)
+			{
+				if ((tagName[i] < 'a') && (tagName[i] > 'z') || (tagName[i] < 'A') && (tagName[i] > 'Z') && (tagName[i] != '-'))
+					correct = false;
+			}
+
+			return correct;
+		}
+
+		/**
+		 * @fn			bool Add(string tag, BTCNumber value)
+		 * @brief		If TAG is malformed or already insert, the new value will be ignored
+		 */
 		public void Add(string tag, BTCNumber value)
 		{
-			try
-			{
-				this.elements.Add(tag, value);
-			}
-			catch (System.ArgumentException) {}
+			if (IsTag(tag))
+				try
+				{
+					this.elements.Add(tag, value);
+				}
+				catch (System.ArgumentException) {}
 		}
-		public void Add(string tag, BTCString value)
+		/**
+		 * @fn			bool Add(string tag, BTCString value)
+		 * @brief		If TAG is malformed or already insert, the new value will be ignored
+		 */
+		public bool Add(string tag, BTCString value)
 		{
-			try
-			{
-				this.elements.Add(tag, value);
-			}
-			catch (System.ArgumentException) {}
+			bool ret = false;
+			if (IsTag(tag))
+				try
+				{
+					this.elements.Add(tag, value);
+					ret = true;
+				}
+				catch (System.ArgumentException) {}
+			
+			return ret;
 		}
-		public void Add(string tag, BTCBool value)
+		/**
+		 * @fn			bool Add(string tag, BTCBool value)
+		 * @brief		If TAG is malformed or already insert, the new value will be ignored
+		 */
+		public bool Add(string tag, BTCBool value)
 		{
-			try
-			{
-				this.elements.Add(tag, value);
-			}
-			catch (System.ArgumentException) {}
+			bool ret = false;
+			if (IsTag(tag))
+				try
+				{
+					this.elements.Add(tag, value);
+					ret = true;
+				}
+				catch (System.ArgumentException) { }
+
+			return ret;
 		}
-		public void Add(string tag, BTCObject value)
+		/**
+		 * @fn			bool Add(string tag, BTCObject value)
+		 * @brief		If TAG is malformed or already insert, the new value will be ignored
+		 */
+		public bool Add(string tag, BTCObject value)
 		{
-			try
-			{
-				this.elements.Add(tag, value);
-			}
-			catch (System.ArgumentException) {}
+			bool ret = false;
+			if (IsTag(tag))
+				try
+				{
+					this.elements.Add(tag, value);
+					ret = true;
+				}
+				catch (System.ArgumentException) { }
+
+			return ret;
 		}
-		public void Add(string tag, BTCList value)
+		/**
+		 * @fn			bool Add(string tag, BTCList value)
+		 * @brief		If TAG is malformed or already insert, the new value will be ignored
+		 */
+		public bool Add(string tag, BTCList value)
 		{
-			try
-			{
-				this.elements.Add(tag, value);
-			}
-			catch (System.ArgumentException) {}
+			bool ret = false;
+			if (IsTag(tag))
+				try
+				{
+					this.elements.Add(tag, value);
+					ret = true;
+				}
+				catch (System.ArgumentException) { }
+
+			return ret;
 		}
-		
-		// Remove the element with the corresponding TAG
+
+		/**
+		 * @fn			void Remove(string tag)
+		 * @brief		Remove the element with the corrisponding TAG
+		 */
 		public void Remove(string tag)
 		{
 			this.elements.Remove(tag);
 		}
-		// Return the numbers of elements (this element only)
+		/**
+		 * @fn			int Count()
+		 * @brief		Returns the number of THIS object children
+		 */
 		public int Count()
 		{
 			return this.elements.Count;
 		}
 
-		// Guarantee exception safe
+		/**
+		 * @fn			IBTCData Tag(string tag)
+		 * @brief		Returns the IBTCData that is paired with TAG.
+		 *				If TAG doesn't exist, it returns null
+		 */
 		public IBTCData Tag(string tag)
 		{
 			IBTCData val;
@@ -80,6 +168,10 @@ namespace BTC
 
 			return val;
 		}
+		/**
+		 * @fn			List<string> Tags()
+		 * @brief		Return a list of TAGs associated with THIS object children
+		 */
 		public List<string> Tags()
 		{
 			List<string> result = new List<string>();

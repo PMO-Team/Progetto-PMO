@@ -25,8 +25,8 @@ namespace BTC
 				ParseElement(ref i, in str, ref mObj);
 			}
 
-			if (mObj.Count() == 0)
-				throw new BTCSyntaxErrorException("Syntax Error: cannot insert an empty object");
+			//if (mObj.Count() == 0)
+			//	throw new BTCSyntaxErrorException("Syntax Error: cannot insert an empty object");
 
 			i += 1;
 
@@ -56,8 +56,8 @@ namespace BTC
 					i += 1;
 			}
 			
-			if (mList.Count() == 0)
-				throw new BTCSyntaxErrorException("Syntax Error: cannot insert an empty list");
+			//if (mList.Count() == 0)
+			//	throw new BTCSyntaxErrorException("Syntax Error: cannot insert an empty list");
 
 			i += 1;
 
@@ -67,14 +67,16 @@ namespace BTC
 		private static void ParseElement(ref int i, in string str, ref BTCObject obj)
 		{
 			if (str[i] != '@')
-				throw new BTCSyntaxErrorException("Syntax Error: Not A Tag;\r\nFound At: " + i);
+				throw new BTCSyntaxErrorException("Syntax Error: Not A Tag. Found At: " + i);
 			
 			string tag = "";
-			for (i += 1; IsTag(str[i]) ; i++)
+			//for (i += 1; IsTag(str[i]) ; i++)
+			//	tag += str[i];
+			for (i += 1; str[i] != '>'; i++)
 				tag += str[i];
-			
-			if ((tag.Length == 0) || (str[i] != '>'))
-				throw new BTCSyntaxErrorException("Syntax Error: Invalid Separator in Element;\r\nFound At: " + i);
+
+				if ((tag.Length == 0) || (!BTCObject.IsTag(tag)))
+					throw new BTCSyntaxErrorException("Syntax Error: Invalid TAG. Found at: " + i);
 			
 			i += 1;
 			if (str[i] == '(')
@@ -90,7 +92,7 @@ namespace BTC
 					value += str[i];
 				
 				if (value.Length == 0)
-					throw new BTCSyntaxErrorException("Syntax Error: No Element Value;\r\nFound At: " + i);
+					throw new BTCSyntaxErrorException("Syntax Error: No Element Value. Found At: " + i);
 				
 				double dValue;
 				bool bValue;
@@ -100,7 +102,7 @@ namespace BTC
 				else if (TryParse(value, out bValue))
 					obj.Add(tag, new BTCBool(bValue));
 				else 
-					throw new BTCSyntaxErrorException("Syntax Error: Invalid Element Value;\r\nFound At: " + i);
+					throw new BTCSyntaxErrorException("Syntax Error: Invalid Element Value. Found At: " + i);
 			}
 		}
 		//
@@ -119,7 +121,7 @@ namespace BTC
 					value += str[i];
 				
 				if (value.Length == 0)
-					throw new BTCSyntaxErrorException("Syntax Error: no item value;\r\nFound At: " + i);
+					throw new BTCSyntaxErrorException("Syntax Error: no item value. Found At: " + i);
 				
 				double dValue;
 				bool bValue;
@@ -129,7 +131,7 @@ namespace BTC
 				else if (TryParse(value, out bValue))
 					list.Add(new BTCBool(bValue));
 				else 
-					throw new BTCSyntaxErrorException("Syntax Error: invalid item value;\r\nFound At: " + i);
+					throw new BTCSyntaxErrorException("Syntax Error: invalid item value. Found At: " + i);
 			}
 		}
 		//

@@ -1,0 +1,201 @@
+\hypertarget{classBTC_1_1BTCObject}{}\doxysection{B\+T\+C.\+B\+T\+C\+Object Class Reference}
+\label{classBTC_1_1BTCObject}\index{BTC.BTCObject@{BTC.BTCObject}}
+
+
+Class for containing T\+A\+Gs and E\+L\+E\+M\+E\+N\+Ts.  
+
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classBTC_1_1BTCObject_a3a407bf8e2a6af153bcee62968133c88}{B\+T\+C\+Object}} ()
+\begin{DoxyCompactList}\small\item\em Constructor. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classBTC_1_1BTCObject_aa65e76006bfe7b05008153b349559698}{Add}} (string tag, \mbox{\hyperlink{classBTC_1_1BTCNumber}{B\+T\+C\+Number}} value)
+\begin{DoxyCompactList}\small\item\em If T\+AG is malformed or already insert, the new value will be ignored. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classBTC_1_1BTCObject_a86c6e9c2c3e08fb16a96284b032ebd27}{Add}} (string tag, \mbox{\hyperlink{classBTC_1_1BTCString}{B\+T\+C\+String}} value)
+\begin{DoxyCompactList}\small\item\em If T\+AG is malformed or already insert, the new value will be ignored. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classBTC_1_1BTCObject_aac8ba3f7c564d3c29ddf29d19f7d2733}{Add}} (string tag, \mbox{\hyperlink{classBTC_1_1BTCBool}{B\+T\+C\+Bool}} value)
+\begin{DoxyCompactList}\small\item\em If T\+AG is malformed or already insert, the new value will be ignored. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classBTC_1_1BTCObject_a4efb750e997d3b912963c1d6b98035e7}{Add}} (string tag, \mbox{\hyperlink{classBTC_1_1BTCObject}{B\+T\+C\+Object}} value)
+\begin{DoxyCompactList}\small\item\em If T\+AG is malformed or already insert, the new value will be ignored. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classBTC_1_1BTCObject_a54779d7c704f730ca95573006c6a6a32}{Add}} (string tag, \mbox{\hyperlink{classBTC_1_1BTCList}{B\+T\+C\+List}} value)
+\begin{DoxyCompactList}\small\item\em If T\+AG is malformed or already insert, the new value will be ignored. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classBTC_1_1BTCObject_ad416c655caef5f1bfe003cb592cf1ce2}{Remove}} (string tag)
+\begin{DoxyCompactList}\small\item\em Remove the element with the corrisponding T\+AG. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classBTC_1_1BTCObject_ac3394da513e08af1111e42925d2b445d}{Count}} ()
+\begin{DoxyCompactList}\small\item\em Returns the number of T\+H\+IS object children. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{interfaceBTC_1_1IBTCData}{I\+B\+T\+C\+Data}} \mbox{\hyperlink{classBTC_1_1BTCObject_a33c5981ed8c5529faca0a363c0c3c197}{Tag}} (string tag)
+\begin{DoxyCompactList}\small\item\em Returns the \mbox{\hyperlink{interfaceBTC_1_1IBTCData}{I\+B\+T\+C\+Data}} that is paired with T\+AG. If T\+AG doesn\textquotesingle{}t exist, it returns null. \end{DoxyCompactList}\item 
+List$<$ string $>$ \mbox{\hyperlink{classBTC_1_1BTCObject_a914307f6d3a2f41d5f1d0fc8377509cd}{Tags}} ()
+\begin{DoxyCompactList}\small\item\em Return a list of T\+A\+Gs associated with T\+H\+IS object children. \end{DoxyCompactList}\item 
+string \mbox{\hyperlink{classBTC_1_1BTCObject_ac513724334d233ca93c663399b5124f5}{Encode}} ()
+\begin{DoxyCompactList}\small\item\em This method return the data value encoded in a compact way. \end{DoxyCompactList}\item 
+string \mbox{\hyperlink{classBTC_1_1BTCObject_afa800ececd0eaf700d4303a180e27d60}{Encode}} (int separators)
+\begin{DoxyCompactList}\small\item\em This method return the data value encoded in a pretty way. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static bool \mbox{\hyperlink{classBTC_1_1BTCObject_a94b30fb5520f4aed42c78631ce4ac22c}{Is\+Tag}} (in string tag\+Name)
+\begin{DoxyCompactList}\small\item\em This method is used for detect if a given string is well formatted as T\+AG \mbox{\hyperlink{namespaceBTC}{B\+TC}} S\+P\+EC says ~\newline
+ \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Class for containing T\+A\+Gs and E\+L\+E\+M\+E\+N\+Ts. 
+
+This class rappresent the data tree structure, where each element is associated with a U\+N\+I\+Q\+UE S\+T\+R\+I\+NG T\+AG 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classBTC_1_1BTCObject_a3a407bf8e2a6af153bcee62968133c88}\label{classBTC_1_1BTCObject_a3a407bf8e2a6af153bcee62968133c88}} 
+\index{BTC.BTCObject@{BTC.BTCObject}!BTCObject@{BTCObject}}
+\index{BTCObject@{BTCObject}!BTC.BTCObject@{BTC.BTCObject}}
+\doxysubsubsection{\texorpdfstring{BTCObject()}{BTCObject()}}
+{\footnotesize\ttfamily B\+T\+C.\+B\+T\+C\+Object.\+B\+T\+C\+Object (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Constructor. 
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classBTC_1_1BTCObject_aac8ba3f7c564d3c29ddf29d19f7d2733}\label{classBTC_1_1BTCObject_aac8ba3f7c564d3c29ddf29d19f7d2733}} 
+\index{BTC.BTCObject@{BTC.BTCObject}!Add@{Add}}
+\index{Add@{Add}!BTC.BTCObject@{BTC.BTCObject}}
+\doxysubsubsection{\texorpdfstring{Add()}{Add()}\hspace{0.1cm}{\footnotesize\ttfamily [1/5]}}
+{\footnotesize\ttfamily bool B\+T\+C.\+B\+T\+C\+Object.\+Add (\begin{DoxyParamCaption}\item[{string}]{tag,  }\item[{\mbox{\hyperlink{classBTC_1_1BTCBool}{B\+T\+C\+Bool}}}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+If T\+AG is malformed or already insert, the new value will be ignored. 
+
+\mbox{\Hypertarget{classBTC_1_1BTCObject_a54779d7c704f730ca95573006c6a6a32}\label{classBTC_1_1BTCObject_a54779d7c704f730ca95573006c6a6a32}} 
+\index{BTC.BTCObject@{BTC.BTCObject}!Add@{Add}}
+\index{Add@{Add}!BTC.BTCObject@{BTC.BTCObject}}
+\doxysubsubsection{\texorpdfstring{Add()}{Add()}\hspace{0.1cm}{\footnotesize\ttfamily [2/5]}}
+{\footnotesize\ttfamily bool B\+T\+C.\+B\+T\+C\+Object.\+Add (\begin{DoxyParamCaption}\item[{string}]{tag,  }\item[{\mbox{\hyperlink{classBTC_1_1BTCList}{B\+T\+C\+List}}}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+If T\+AG is malformed or already insert, the new value will be ignored. 
+
+\mbox{\Hypertarget{classBTC_1_1BTCObject_aa65e76006bfe7b05008153b349559698}\label{classBTC_1_1BTCObject_aa65e76006bfe7b05008153b349559698}} 
+\index{BTC.BTCObject@{BTC.BTCObject}!Add@{Add}}
+\index{Add@{Add}!BTC.BTCObject@{BTC.BTCObject}}
+\doxysubsubsection{\texorpdfstring{Add()}{Add()}\hspace{0.1cm}{\footnotesize\ttfamily [3/5]}}
+{\footnotesize\ttfamily bool B\+T\+C.\+B\+T\+C\+Object.\+Add (\begin{DoxyParamCaption}\item[{string}]{tag,  }\item[{\mbox{\hyperlink{classBTC_1_1BTCNumber}{B\+T\+C\+Number}}}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+If T\+AG is malformed or already insert, the new value will be ignored. 
+
+\mbox{\Hypertarget{classBTC_1_1BTCObject_a4efb750e997d3b912963c1d6b98035e7}\label{classBTC_1_1BTCObject_a4efb750e997d3b912963c1d6b98035e7}} 
+\index{BTC.BTCObject@{BTC.BTCObject}!Add@{Add}}
+\index{Add@{Add}!BTC.BTCObject@{BTC.BTCObject}}
+\doxysubsubsection{\texorpdfstring{Add()}{Add()}\hspace{0.1cm}{\footnotesize\ttfamily [4/5]}}
+{\footnotesize\ttfamily bool B\+T\+C.\+B\+T\+C\+Object.\+Add (\begin{DoxyParamCaption}\item[{string}]{tag,  }\item[{\mbox{\hyperlink{classBTC_1_1BTCObject}{B\+T\+C\+Object}}}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+If T\+AG is malformed or already insert, the new value will be ignored. 
+
+\mbox{\Hypertarget{classBTC_1_1BTCObject_a86c6e9c2c3e08fb16a96284b032ebd27}\label{classBTC_1_1BTCObject_a86c6e9c2c3e08fb16a96284b032ebd27}} 
+\index{BTC.BTCObject@{BTC.BTCObject}!Add@{Add}}
+\index{Add@{Add}!BTC.BTCObject@{BTC.BTCObject}}
+\doxysubsubsection{\texorpdfstring{Add()}{Add()}\hspace{0.1cm}{\footnotesize\ttfamily [5/5]}}
+{\footnotesize\ttfamily bool B\+T\+C.\+B\+T\+C\+Object.\+Add (\begin{DoxyParamCaption}\item[{string}]{tag,  }\item[{\mbox{\hyperlink{classBTC_1_1BTCString}{B\+T\+C\+String}}}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+If T\+AG is malformed or already insert, the new value will be ignored. 
+
+\mbox{\Hypertarget{classBTC_1_1BTCObject_ac3394da513e08af1111e42925d2b445d}\label{classBTC_1_1BTCObject_ac3394da513e08af1111e42925d2b445d}} 
+\index{BTC.BTCObject@{BTC.BTCObject}!Count@{Count}}
+\index{Count@{Count}!BTC.BTCObject@{BTC.BTCObject}}
+\doxysubsubsection{\texorpdfstring{Count()}{Count()}}
+{\footnotesize\ttfamily int B\+T\+C.\+B\+T\+C\+Object.\+Count (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Returns the number of T\+H\+IS object children. 
+
+\mbox{\Hypertarget{classBTC_1_1BTCObject_ac513724334d233ca93c663399b5124f5}\label{classBTC_1_1BTCObject_ac513724334d233ca93c663399b5124f5}} 
+\index{BTC.BTCObject@{BTC.BTCObject}!Encode@{Encode}}
+\index{Encode@{Encode}!BTC.BTCObject@{BTC.BTCObject}}
+\doxysubsubsection{\texorpdfstring{Encode()}{Encode()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily string B\+T\+C.\+B\+T\+C\+Object.\+Encode (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method return the data value encoded in a compact way. 
+
+\begin{DoxyReturn}{Returns}
+Encoded string of the data value 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{interfaceBTC_1_1IBTCData_a9b03f6d8cea5b9bc35a9899ee40c9eb4}{B\+T\+C.\+I\+B\+T\+C\+Data}}.
+
+\mbox{\Hypertarget{classBTC_1_1BTCObject_afa800ececd0eaf700d4303a180e27d60}\label{classBTC_1_1BTCObject_afa800ececd0eaf700d4303a180e27d60}} 
+\index{BTC.BTCObject@{BTC.BTCObject}!Encode@{Encode}}
+\index{Encode@{Encode}!BTC.BTCObject@{BTC.BTCObject}}
+\doxysubsubsection{\texorpdfstring{Encode()}{Encode()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily string B\+T\+C.\+B\+T\+C\+Object.\+Encode (\begin{DoxyParamCaption}\item[{int}]{separators }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method return the data value encoded in a pretty way. 
+
+\begin{DoxyReturn}{Returns}
+Encoded string of the data value 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{interfaceBTC_1_1IBTCData_a3f00c54938dbd217d9e2b23cf64451b0}{B\+T\+C.\+I\+B\+T\+C\+Data}}.
+
+\mbox{\Hypertarget{classBTC_1_1BTCObject_a94b30fb5520f4aed42c78631ce4ac22c}\label{classBTC_1_1BTCObject_a94b30fb5520f4aed42c78631ce4ac22c}} 
+\index{BTC.BTCObject@{BTC.BTCObject}!IsTag@{IsTag}}
+\index{IsTag@{IsTag}!BTC.BTCObject@{BTC.BTCObject}}
+\doxysubsubsection{\texorpdfstring{IsTag()}{IsTag()}}
+{\footnotesize\ttfamily bool B\+T\+C.\+B\+T\+C\+Object.\+Is\+Tag (\begin{DoxyParamCaption}\item[{in string}]{tag\+Name }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+This method is used for detect if a given string is well formatted as T\+AG \mbox{\hyperlink{namespaceBTC}{B\+TC}} S\+P\+EC says ~\newline
+ 
+
+\mbox{\Hypertarget{classBTC_1_1BTCObject_ad416c655caef5f1bfe003cb592cf1ce2}\label{classBTC_1_1BTCObject_ad416c655caef5f1bfe003cb592cf1ce2}} 
+\index{BTC.BTCObject@{BTC.BTCObject}!Remove@{Remove}}
+\index{Remove@{Remove}!BTC.BTCObject@{BTC.BTCObject}}
+\doxysubsubsection{\texorpdfstring{Remove()}{Remove()}}
+{\footnotesize\ttfamily void B\+T\+C.\+B\+T\+C\+Object.\+Remove (\begin{DoxyParamCaption}\item[{string}]{tag }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Remove the element with the corrisponding T\+AG. 
+
+\mbox{\Hypertarget{classBTC_1_1BTCObject_a33c5981ed8c5529faca0a363c0c3c197}\label{classBTC_1_1BTCObject_a33c5981ed8c5529faca0a363c0c3c197}} 
+\index{BTC.BTCObject@{BTC.BTCObject}!Tag@{Tag}}
+\index{Tag@{Tag}!BTC.BTCObject@{BTC.BTCObject}}
+\doxysubsubsection{\texorpdfstring{Tag()}{Tag()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{interfaceBTC_1_1IBTCData}{I\+B\+T\+C\+Data}} B\+T\+C.\+B\+T\+C\+Object.\+Tag (\begin{DoxyParamCaption}\item[{string}]{tag }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Returns the \mbox{\hyperlink{interfaceBTC_1_1IBTCData}{I\+B\+T\+C\+Data}} that is paired with T\+AG. If T\+AG doesn\textquotesingle{}t exist, it returns null. 
+
+\mbox{\Hypertarget{classBTC_1_1BTCObject_a914307f6d3a2f41d5f1d0fc8377509cd}\label{classBTC_1_1BTCObject_a914307f6d3a2f41d5f1d0fc8377509cd}} 
+\index{BTC.BTCObject@{BTC.BTCObject}!Tags@{Tags}}
+\index{Tags@{Tags}!BTC.BTCObject@{BTC.BTCObject}}
+\doxysubsubsection{\texorpdfstring{Tags()}{Tags()}}
+{\footnotesize\ttfamily List$<$ string $>$ B\+T\+C.\+B\+T\+C\+Object.\+Tags (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Return a list of T\+A\+Gs associated with T\+H\+IS object children. 
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/home/nick/\+Scrivania/\+Uni/\+Progetti/\+Progetto-\/\+P\+M\+O/\+B\+T\+C/B\+T\+C\+Object.\+cs\end{DoxyCompactItemize}
