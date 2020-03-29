@@ -2,6 +2,13 @@ using System.Collections.Generic;
 
 namespace BTC
 {
+	/**
+	 * @class			BTCList
+	 * @implements		IBTCData
+	 *
+	 * @brief			Class for containing ITEMs
+	 * @details			This class rappresent the data tree structure.
+	 */
 	public class BTCList : IBTCData
 	{
 		/**
