@@ -11,4 +11,4 @@
 
 ### Use Cases con relativo schema OML
 
-![UML Diagram](./src/BTC.jpg)
+![UML Diagram](https://github.com/GeckoNickDeveloper/Progetto-PMO/blob/master/Relazione/src/BTC.jpg)
