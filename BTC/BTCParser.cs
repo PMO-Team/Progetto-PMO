@@ -70,8 +70,6 @@ namespace BTC
 				throw new BTCSyntaxErrorException("Syntax Error: Not A Tag. Found At: " + i);
 			
 			string tag = "";
-			//for (i += 1; IsTag(str[i]) ; i++)
-			//	tag += str[i];
 			for (i += 1; str[i] != '>'; i++)
 				tag += str[i];
 
