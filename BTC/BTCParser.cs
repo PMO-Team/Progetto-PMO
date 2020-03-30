@@ -9,11 +9,6 @@ namespace BTC
 		{
 			return ((c == ' ') || (c == '\t') || (c == '\r') || (c == '\n'));
 		}
-		//
-		private static bool IsTag(char c)
-		{
-			return (((c >= 'a') && (c <= 'z')) || ((c >= 'A') && (c <= 'Z')) || (c == '-'));
-		}
 		
 		// Parsing utils
 		private static BTCObject ParseObject(ref int i, in string str)
