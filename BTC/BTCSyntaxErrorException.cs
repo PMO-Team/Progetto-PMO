@@ -9,12 +9,6 @@ namespace BTC
 	public class BTCSyntaxErrorException : System.Exception
 	{
 		/**
-		 * @fn			BTCSyntaxErrorException()
-		 * 
-		 * @brief		Default Constructor
-		 */
-		public BTCSyntaxErrorException() {}
-		/**
 		 * @fn			BTCSyntaxErrorException(string message)
 		 * 
 		 * @brief		Use the Conctructor of the Superclass 
