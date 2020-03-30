@@ -30,7 +30,7 @@ L'ultima soluzione che vedremo all'interno di questo documento, sarà quella eff
 - `BTCNumber`
 - `BTCBool`
 - `BTCObject`
-- `BTCList`
+- `BTCList` <br>
 Dove le classi semplici sono le prime tre, mentre quelle complesse (le ultime due) espongono metodi per la sola gestione delle classi elencate (più qualche metodo per le informazioni importanti).
 
 #### Algoritmi
@@ -74,3 +74,8 @@ Per testarla, invece, è già stato realizzato un [programma](https://github.com
 Una documentazione sull'utilizzo delle funzionalità pubbliche esposte dalla libreria (classi, interfacce) è disponibile all'interno della repository in '/docs/html/index.html' ed è facilmente consultabile da browser una volta clonata la repository in locale. 
 
 ## Use Cases con relativo schema UML
+I casi d'uso del progetto possono essere facilmente elencati:
+- Effettuare il parsing di un file
+- Effettuare il parsing di una string
+- Codificare in stringa un oggetto
+- Codificare in un file un oggetto
