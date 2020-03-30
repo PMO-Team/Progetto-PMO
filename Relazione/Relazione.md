@@ -55,7 +55,7 @@ Parliamo ora delle **utilità di conversione**: _TryParse_.<br>
 Questo algoritmo ci permette di convertire stringhe in valori numerici e booleani (se possibile), notificandoci del successo o dell'insuccesso dell'operazione.
 Bisogna però dire che è l'unico algoritmo che ha necessità di cambiare, anche radicalmente, a seconda del linguaggio utilizzato.<br><br>
 
-Entriamo ora nel cuore della libreria: l'algoritmo di **parsing**.<br>
+Entriamo ora nel cuore della libreria: gll algoritmi di **parsing**.<br>
 Questo particolare algoritmo utilizza una metodologia _greedy_: non appena trova un carattere che segnala possibile elemento o item, prova ad eseguirne subito il parsing, lasciando in sospeso l'operazione precedente fino a completamento del nuovo parsing iniziato. Questa tecnica ci torna particolarmente comoda in quanto ogni elemento nella specifica BTC è una coppia TAG-VALORE, dove il valore può essere un numero, una stringa, un valore booleano o addirittura un oggetto o una lista, i quali a loro volta contengono ELEMENTI o ITEM, quindi un strategia di parsing di questo tipo ci permette di arrivare fino ad un valore semplice per poi tornare indietro e continuare con il parsing degli elementi più complessi.<br>
 Tuttavia, potrebbe capitare che si verifichino degli errori di sintassi. Per ovviare a questo problema è stata creata la classe _BTCSyntaxErrorException_: una classe che estende Exception
 
