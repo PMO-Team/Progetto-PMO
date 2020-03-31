@@ -75,48 +75,47 @@ dove la stringa `../BTC/` è il percordo alla directory del progetto BTC (locazi
 Essendo il progetto una libreria, un digramma degli _use cases_ risulterebbe troppo semplice e riduttivo; pertanto si utilizzerà una versione più discorsiva.
 > Si è optato per lasciare gli use cases in inglese
 ___
-##### USE CASE
+###### USE CASE
 Encode object
-##### ID
+###### ID
 UC1
-##### ACTOR
+###### ACTOR
 Programmer (P1)
-##### PRECONDITION
+###### PRECONDITION
 - P1 has created an istance of BTCObject
-##### BASIC COURSE OF EVENTS
+###### BASIC COURSE OF EVENTS
 1. P1 invokes the method `Encode` of BTCParser;
 2. (Optional) P1 specifies if the encoding should be nice or compact;
-##### POSTCONDITION
+###### POSTCONDITION
 - P1 gets the return string, doing whatever he want with it.
-##### ALTERNATIVE PATHS
+###### ALTERNATIVE PATHS
 5. If P1 wants to write the result into a file, he has to invoke `EncodeIntoFile`
 ___
 
-##### USE CASE
+###### USE CASE
 Decode string
-##### ID
+###### ID
 UC2
-##### ACTOR
+###### ACTOR
 Programmer (P1)
-##### PRECONTITION
+###### PRECONTITION
 - P1 has a text that he wants to convert in an instance of BTCObject
-##### BASIC COURSE OF EVENTS
+###### BASIC COURSE OF EVENTS
 1. P1 invokes the method `Decode` of BTCParser;
-##### POSTCONDITION
+###### POSTCONDITION
 - P1 gets the return instance of BTCObject, doing whatever he want with it.
-##### ALTERNATIVE PATHS
+###### ALTERNATIVE PATHS
 2. P1 may wants to decode a file, not a string: so he'll invoke `DecodeFromFile`, and he will pass the path to file instead of a string to decode.
 ___
-
-##### USE CASE
+###### USE CASE
 Normalize string
-##### ID
+###### ID
 UC3
-##### ACTOR
+###### ACTOR
 Programmer (P1)
-##### PRECONDITION
+###### PRECONDITION
 - P1 has a nicely formatted text that he wants to compact.
-##### BASIC COURSE OF EVENTS
+###### BASIC COURSE OF EVENTS
 1. P1 invokes the method `Normalize` of BTCParser.
-##### POSTCONDITIONS
+###### POSTCONDITIONS
 - P1 gets the compact string, doing whatever he want with it.
