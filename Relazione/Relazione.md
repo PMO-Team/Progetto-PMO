@@ -1,81 +1,66 @@
 # Relazione progetto di Programmazione e Modellazione ad Oggetti (PMO)
 ## Specifica
-Il progetto consiste nella realizzazione di un PARSER per la specifica [BTC](https://github.com/GeckoNickDeveloper/BluetoothTagChain). Suddetto PARSER dovrà consentire sia la codifica in testo (e/o scrittura su file) che la decodifica da testo (o file). Per la codifica sarà necessario creare un oggetto da serializzare.
+Il progetto consiste nella realizzazione di un _parser_ per la specifica di rappresentazione dati [BTC](https://github.com/GeckoNickDeveloper/BluetoothTagChain). Suddetto parser dovrà consentire sia la codifica in testo (o scrittura su file) che la decodifica da testo (o file) in oggetto per garantire una gestione lato codice. Per la codifica sarà necessario creare un oggetto appropriato da serializzare.
 ## Studio del problema
-Dalla [specifica](https://github.com/GeckoNickDeveloper/BluetoothTagChain) del file di testo, notiamo subito che vi sono tre principali problematiche per la realizzazione del progetto:
-1. La rappresentazione della struttura ad albero
-2. Algoritmo di parsing (decoding)
-3. Algoritmo di encoding
-
+Dalla [specifica](https://github.com/GeckoNickDeveloper/BluetoothTagChain) insorgono delle problematiche che necessitano di essere affrontate:
+- Rappresentazione della struttura dati
+- Decoding del testo
+- Encoding dell'oggetto in testo
+Delle possibili soluzioni possono essere l'utilizzo del **_Composite Pattern_** per la rappresentazione della struttura dati, mentre per l'algoritmo di decoding bisogna analizzare più a fondo le fasi principali. Al momento, esse potrebbero essere riassunte come:
+- _Acquisizione stringa_
+- _Semplificazione stringa_
+- _Parsing oggetto_ (da ripetere i passi sottostanti fino alla chiusura dell'oggetto o fino al verificarsi di un errore di sintassi)
+	- _Parsing elemento_
+		- _Parsing TAG_
+		- _Parsing VALUE_
+- _Restituzione Oggetto letto_<br>
+L'algoritmo di encoding può essere visto a grandi linee come il precedente, con la differenza che qui i dati sono già esistenti, quindi sarà "molto" più semplice trascriverne il contenuto in testo.
 
 ## Scelte architetturali
-In questa sezione andremo a spiegare le principali scelte architetturali. Esse hanno l'intento di essere il più indipendenti possibili dal linguaggio, anche se alcune particolarità sono state espresse con le parole chiave del linguaggio C# (in cui questo progetto software è stato scritto).
-
+Nella sezione precedente, abbiamo visto delle possibili soluzioni per la realizzazione del progetto. Andremo ora a vedere come sono state utilizzate in pratica per risolvere le problematiche sopracitate.
 #### Struttura dati
-Durante la fase di modellazione del progetto, è capitato più volte di creare diagrammi UML. Inizialmente, per la rappresentazione della struttura dati di tipo _albero_, vi sono stati numerosi possibili diagrammi delle classi dovuti all'aggiornamento delle specifiche BTC, che tuttavia non risultavano efficaci e portavano solo inutile complessità all'interno del progetto vero e proprio. Si è dunque optato per l'utilizzo di un design pattern particolarmente adatto a rappresentare _alberi_: il **_Composite Pattern_**. Ma anche allora esistevano diverse soluzioni che si basavano sul _pattern_ scelto.<br>
-Una consisteva nel creare 3 **classi chiave** ed 1 interfaccia comune (_Component_ nella definizione del pattern), dove ogni classe chiave implementava l'interfaccia comune:
-- `IBTCData` (interfaccia)
-- `BTCObject`
-- `BTCList`<T>
-- `BTCElement`<T>
-Tuttavia questa soluzione implicava che venissero create delle **sottoclassi di specializzazione** per _BTCElement_ e _BTCList_; quindi venne scartata in quanto avrebbe causato una eccessiva complessità del _package_ ed avrebbe dato troppa libertà all'utente che avrebbe utilizzato questa libreria. Libertà che avrebbe potuto portare il progetto a rivelarsi inutile. Inoltre, con uno degli aggiornamenti della specifica BTC, si è rivelato un modello non consono alla rappresentazione.<br>
-Un'altra possibile implementazione consisteva in:
-- `IBTCData` (interfaccia)
-- `BTCObject`
-- `BTCList : List<IBTCData>`
-- `BTCElement<T>`<br>
-Ancora una volta, però, l'ipotesi è stata abbandonata, in quanto esponeva troppe funzionalità rispetto all'utilizzo previsto, nonchè alla necessità di creare classi di specializzazione che estendessero `BTCElement<T>` lasciando all'utente la possibilità di "fare danni".<br>
-L'ultima soluzione che vedremo all'interno di questo documento, sarà quella effettivamente adottata. Tale soluzione consiste in 5 classi (più solita interfaccia) dove, nonostante l'apparente inefficienza, ogni classe è specializzata e non permette all'utente finale di "rompere" la libreria in se. In questo caso, quindi:
-- `BTCString`
-- `BTCNumber`
-- `BTCBool`
-- `BTCObject`
-- `BTCList` <br>
-Dove le classi semplici sono le prime tre, mentre quelle complesse (le ultime due) espongono metodi per la sola gestione delle classi elencate (più qualche metodo per le informazioni importanti).
+Al fine di rappresentare la struttura dati ad _albero_ descritta nella specifica [BTC](https://github.com/GeckoNickDeveloper/BluetoothTagChain), si è optato per il **_Composite Pattern_**: esso è un pattern strutturale solitamente utilizzato per la creazione di alberi; consiste in una interfaccia implementata da tutte le classi facenti parte dell'albero (**Component**) e _X_ classi rappresentanti i nodi e le foglie.<br>
+In questo caso, necessitiamo di tre diversi tipi di foglie: numeri, stringhe e valori booleani. I nodi complessi, invece, sono due: oggetti e liste, dove l'implementazione è abbastanza diversa da meritare due classi separate.<br>
+In questa implementazione le varie classi prendono i seguenti nomi:
+- BTCNumber
+- BTCString
+- BTCBool<br>
+Per la rappresentazione delle _foglie_, mentre:
+- BTCObject
+- BTCList<br>
+Rappresentano i _nodi_ dell'albero, ovvero gli oggetti "complessi".<br><br>
+Ciascuna delle classi sopracitate implementa un'interfaccia comune:
+- IBTCData<br>
+La quale espone due metodi per la codifica in testo (uno con ed uno senza parametri).<br><br>
+Tale scelta ha portato ad un grosso vantaggio per quanto riguarda la codifica in testo ed ha, allo stesso tempo, gettato delle basi di partenza per l'algoritmo di parsing.
 
 #### Algoritmi
-Dal punto di vista algoritmico, invece, vi è stata più attenzione. Innanzituto è stata creata la classe _BTCParser_ con lo scopo di esporre dei metodi che permettano la codifica e decodifica di un file BTC. Siccome questi metodi non necessitano della creazione di un'istanza, sono definiti come statici (come tutti gli altri metodi della classe).
-
-Le funzionalità esposte fanno uso dei seguenti algoritmi:
-- Manipolazione della stringa dati:
-	- _Normalize_
-- Utilità di conversione:
-	- _TryParse_
-- Parsing:
-	- _ParseObject_
-	- _ParseList_
-	- _ParseString_
-	- _ParseElement_
-	- _ParseItem_
-
-Iniziamo descrivendo l'unico algoritmo di **manipolazione della stringa dati**: _Normalize_.<br>
-Questo algoritmo serve per rimuovere da una stringa il padding (andate a capo, spazi, tabulazioni). In questo modo la stringa risultante (non viene sovrascritta l'originale) sarà più compatta (o al massimo uguale) rispetto all'originale. In questo modo permettiamo una migliore gestione della stringa, sia ne volessimo fare il parsing, sia l'utente voglia trasmetterla tramite Bluetooth. Questo metodo è, infatti, reso pubblico per offrire una migliore gestione della stringa dati.<br><br>
-
-Parliamo ora delle **utilità di conversione**: _TryParse_.<br>
-Questo algoritmo ci permette di convertire stringhe in valori numerici e booleani (se possibile), notificandoci del successo o dell'insuccesso dell'operazione.
-Bisogna però dire che è l'unico algoritmo che ha necessità di cambiare, anche radicalmente, a seconda del linguaggio utilizzato.<br><br>
-
-Entriamo ora nel cuore della libreria: gll algoritmi di **parsing**.<br>
-Questo particolare algoritmo utilizza una metodologia _greedy_: non appena trova un carattere che segnala possibile elemento o item, prova ad eseguirne subito il parsing, lasciando in sospeso l'operazione precedente fino a completamento del nuovo parsing iniziato. Questa tecnica ci torna particolarmente comoda in quanto ogni elemento nella specifica BTC è una coppia TAG-VALORE, dove il valore può essere un numero, una stringa, un valore booleano o addirittura un oggetto o una lista, i quali a loro volta contengono ELEMENTI o ITEM, quindi un strategia di parsing di questo tipo ci permette di arrivare fino ad un valore semplice per poi tornare indietro e continuare con il parsing degli elementi più complessi.<br>
-Tuttavia, potrebbe capitare che si verifichino degli errori di sintassi. Per ovviare a questo problema è stata creata la classe _BTCSyntaxErrorException_: una classe che estende Exception
+Come accennato nello studio del problema e, successivamente, nella progettazione della struttura dati, l'algoritmo di _encoding_ consisterà in uno scorrimento degli elementi dei nodi complessi, invocandone a sua volta l'algoritmo di encoding, fino ad arrivare a tutte le foglie, completando così la codifica.<br><br>
+Dall'altra parte della medaglia, tuttavia, l'algoritmo di decoding risulta più complicato, in quanto deve NON SOLO convertire il testo in dati, ma anche effettuare una verifica della sintassi. Per ovviare a questa soluzione, è stata creata una classe rappresentante un errore nella sintassi del testo (BTCSyntaxErrorException); quest'ultima viene sollevata quando insorgono dei problemi di sintassi e può essere gestita da un utente che utilizza la libreria.<br>
+Tornando all'algoritmo di decoding, una valida soluzione può essere quella che utilizza una metodologia _greedy_, dove ogni qual volta che ci imbattiamo in un nodo ne avviamo subito il parsing, lasciando in sospeso il nodo padre, per poi tornarci non appena tutti i parsing invocati (sempre con lo stesso metodo) saranno conclusi. Per ridurre al minimo la complessità (in termini di codice, non performance) si è optato di di suddividere l'algoritmo in tanti sotto-algoritmi, con conseguente beneficio di maggior semplicità di debugging.<br><br>
+Tutti gli algoritmi sopracitati sono raggruppati all'interno della classe statica _BTCParser_.
 
 #### Diagramma delle classi
-Come risultato della modellazione e della progettazione della struttura dati e degli algoritmi utilizzati, è nato questo _diagramma delle classi_:<br>
+Il seguente _diagramma delle classi_ è il risultato dell'unione della progettazione della struttura dati e degli algoritmi utilizzati:<br>
 ![Diagramma UML delle classi](https://github.com/GeckoNickDeveloper/Progetto-PMO/blob/master/Relazione/src/BTC.jpg)
 
 ## Documentazione sull'utilizzo
-[Questo](https://github.com/GeckoNickDeveloper/Progetto-PMO/tree/master/BTC) software non richiede compilazione per essere eseguito, in quanto consiste in una libreria (con relativo DLL) importabile in qualsiasi progetto software svilutppato tramite linguaggio _C#_.<br>
-Per testarla, invece, è già stato realizzato un [programma](https://github.com/GeckoNickDeveloper/Progetto-PMO/tree/master/Testing) di testing dove andiamo a generare un file `generated.btc` con delle informazioni fittizie, leggerlo nuovamente effettuandone il PARSING ed aggiungendogli un TAG con relativo valore per, infine, riscriverlo nello stesso file sopracitato.
-
-> NOTA:<br>
-> Tutto il progetto è stato scritto, compilato ed eseguito su piattaforma Linux (nello specifico sulla
-> distribuzione Manjaro, derivata di Arch) tramite tool `dotnet` e `Visual Studio Code`.
-
-Una documentazione sull'utilizzo delle funzionalità pubbliche esposte dalla libreria (classi, interfacce) è disponibile all'interno della repository in '/docs/html/index.html' ed è facilmente consultabile da browser una volta clonata la repository in locale. 
+Siccome il progetto consiste essenzialmente in una libreria, verranno descritte in seguito tutte le funzionalità esposte.
+#### Funzionalità BTCParser
+Le funzionalità principali esposte dalla libreria consistono in dei metodi
+- _Encode_: questo metodo permette di convertire un oggetto di tipo BTCObject in stringa, permettendo di specicare anche se la stringa debba essere formattata in maniera compatta o "bella" (default);
+- _EncodeIntoFile_: come il precedente, con la differenza che andrà a scrivere la string all'interno di file (il percorso ed il nome del file devono essere specificati);
+- _Decode_: permette di creare un'istanza di BTCObject partendo da una stringa (questo metodo solleva un'eccezione di tipo BTCSyntaxErrorException in caso di errore di sintassi)
+- _DecodeFromFile_: come il precedente, però richiede il percorso del file anziché il testo da decodificare;
+- _Normalize_: metodo per trasformare una stringa in formato compatto.
+#### Classi utilizzabili
+La libreria mette a disposizione 5 classi, le quali consentono di creare istanze più o meno complesse che possono essere convertite in testo dai metodi della classe _BTCParser_.
+#### Linking
+Il progetto è stato sviluppato su Manjaro (Arch Linux), tramite l'utilizzo del tool `dotnet`; di conseguenza è necessario specificare i passaggi per utilizzare la libreria BTC all'interno di altri progetti scritti in _C#_, per lo meno in ambiente Linux:<br><br>
+Entrare nella directory del progetto dove si vuole utilizzare la libreria ed eseguire il seguente comando:
+```
+dotnet add reference "../BTC/"
+```
+dove la stringa `../BTC/` è il percordo alla directory del progetto BTC (locazione dove è stata salvata la directory del progetto).
 
 ## Use Cases con relativo schema UML
-I casi d'uso del progetto possono essere facilmente elencati:
-- Effettuare il parsing di un file
-- Effettuare il parsing di una string
-- Codificare in stringa un oggetto
-- Codificare in un file un oggetto
