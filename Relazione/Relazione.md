@@ -37,7 +37,9 @@ Rappresentano i _nodi_ dell'albero, ovvero gli oggetti "complessi".<br><br>
 
 Ciascuna delle classi sopracitate implementa un'interfaccia comune:
 - IBTCData<br>
-La quale espone due metodi per la codifica in testo (uno con ed uno senza parametri).<br><br>
+
+
+La quale espone due metodi per la codifica in testo (uno con ed uno senza parametri).<br>
 Tale scelta ha portato ad un grosso vantaggio per quanto riguarda la codifica in testo ed ha, allo stesso tempo, gettato delle basi di partenza per l'algoritmo di parsing.
 
 #### Algoritmi
