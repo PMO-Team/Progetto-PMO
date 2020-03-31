@@ -72,3 +72,51 @@ dotnet add reference "../BTC/"
 dove la stringa `../BTC/` è il percordo alla directory del progetto BTC (locazione dove è stata salvata la directory del progetto).
 
 ## Use Cases con relativo schema UML
+Essendo il progetto una libreria, un digramma degli _use cases_ risulterebbe troppo semplice e riduttivo; pertanto si utilizzerà una versione più discorsiva.
+> Si è optato per lasciare gli use cases in inglese
+___
+##### Use Case
+Encode object
+##### Id
+UC1
+##### Actor
+Programmer (P1)
+##### Precondition
+- P1 has created an istance of BTCObject
+##### Basic course of events
+1. P1 invokes the method `Encode` of BTCParser;
+2. (Optional) P1 specifies if the encoding should be nice or compact;
+##### Postcondition
+- P1 gets the return string, doing whatever he want with it.
+##### Alternative paths
+5. If P1 wants to write the result into a file, he has to invoke `EncodeIntoFile`
+___
+
+##### Use Case
+Decode string
+##### Id
+UC2
+##### Actor
+Programmer (P1)
+##### Precondition
+- P1 has a text that he wants to convert in an instance of BTCObject
+##### Basic course of events
+1. P1 invokes the method `Decode` of BTCParser;
+##### Postcondition
+- P1 gets the return instance of BTCObject, doing whatever he want with it.
+##### Alternative paths
+2. P1 may wants to decode a file, not a string: so he'll invoke `DecodeFromFile`, and he will pass the path to file instead of a string to decode.
+___
+
+##### Use Case
+Normalize string
+##### Id
+UC3
+##### Actor
+Programmer (P1)
+##### Precondition
+- P1 has a nicely formatted text that he wants to compact.
+##### Basic course of events
+1. P1 invokes the method `Normalize` of BTCParser.
+##### Postcondition
+- P1 gets the compact string, doing whatever he want with it.
