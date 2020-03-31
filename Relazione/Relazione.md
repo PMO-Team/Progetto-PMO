@@ -75,48 +75,48 @@ dove la stringa `../BTC/` è il percordo alla directory del progetto BTC (locazi
 Essendo il progetto una libreria, un digramma degli _use cases_ risulterebbe troppo semplice e riduttivo; pertanto si utilizzerà una versione più discorsiva.
 > Si è optato per lasciare gli use cases in inglese
 ___
-##### Use Case
+##### USE CASE
 Encode object
-##### Id
+##### ID
 UC1
-##### Actor
+##### ACTOR
 Programmer (P1)
-##### Precondition
+##### PRECONDITION
 - P1 has created an istance of BTCObject
-##### Basic course of events
+##### BASIC COURSE OF EVENTS
 1. P1 invokes the method `Encode` of BTCParser;
 2. (Optional) P1 specifies if the encoding should be nice or compact;
-##### Postcondition
+##### POSTCONDITION
 - P1 gets the return string, doing whatever he want with it.
-##### Alternative paths
+##### ALTERNATIVE PATHS
 5. If P1 wants to write the result into a file, he has to invoke `EncodeIntoFile`
 ___
 
-##### Use Case
+##### USE CASE
 Decode string
-##### Id
+##### ID
 UC2
-##### Actor
+##### ACTOR
 Programmer (P1)
-##### Precondition
+##### PRECONTITION
 - P1 has a text that he wants to convert in an instance of BTCObject
-##### Basic course of events
+##### BASIC COURSE OF EVENTS
 1. P1 invokes the method `Decode` of BTCParser;
-##### Postcondition
+##### POSTCONDITION
 - P1 gets the return instance of BTCObject, doing whatever he want with it.
-##### Alternative paths
+##### ALTERNATIVE PATHS
 2. P1 may wants to decode a file, not a string: so he'll invoke `DecodeFromFile`, and he will pass the path to file instead of a string to decode.
 ___
 
-##### Use Case
+##### USE CASE
 Normalize string
-##### Id
+##### ID
 UC3
-##### Actor
+##### ACTOR
 Programmer (P1)
-##### Precondition
+##### PRECONDITION
 - P1 has a nicely formatted text that he wants to compact.
-##### Basic course of events
+##### BASIC COURSE OF EVENTS
 1. P1 invokes the method `Normalize` of BTCParser.
-##### Postcondition
+##### POSTCONDITIONS
 - P1 gets the compact string, doing whatever he want with it.
