@@ -123,7 +123,7 @@ namespace BTC
 		}
 		public string Encode(int separators)
 		{
-			string result = "[\r\n";
+			string result;
 			string sep = "";
 			string closingSep = "";
 			
@@ -133,16 +133,24 @@ namespace BTC
 			for (int i = 1; i < separators; i++)
 				closingSep += "\t";
 
-			for (int i = 0; i < this.elements.Count; i++)
+			if (this.elements.Count > 0)
 			{
-				result += sep;
-				result += this.elements[i].Encode(separators + 1);
-				if (i != (this.elements.Count - 1))
-					result += ",";
-				result += "\r\n";
-			}
+				result = "[\r\n";
+				for (int i = 0; i < this.elements.Count; i++)
+				{
+					result += sep;
+					result += this.elements[i].Encode(separators + 1);
+					if (i != (this.elements.Count - 1))
+						result += ",";
+					result += "\r\n";
+				}
 
-			result += closingSep + "]";
+				result += closingSep + "]";
+			}
+			else
+			{
+				result = "[ ]";
+			}
 
 			return result;
 		}

@@ -200,7 +200,7 @@ namespace BTC
 		}
 		public string Encode(int separators)
 		{
-			string result = "(\r\n";
+			string result;
 			string sep = "";
 			string closingSep = "";
 			
@@ -210,15 +210,23 @@ namespace BTC
 			for (int i = 1; i < separators; i++)
 				closingSep += "\t";
 
-			foreach (var item in this.elements)
+			if (this.elements.Count > 0)
 			{
-				result += sep;
-				result += "@" + item.Key + " > ";
-				result += item.Value.Encode(separators + 1);
-				result += "\r\n";
-			}
+				result = "(\r\n";
+				foreach (var item in this.elements)
+				{
+					result += sep;
+					result += "@" + item.Key + " > ";
+					result += item.Value.Encode(separators + 1);
+					result += "\r\n";
+				}
 
-			result += closingSep + ")";
+				result += closingSep + ")";
+			}
+			else
+			{
+				result = "( )";
+			}
 
 			return result;
 		}

@@ -31,8 +31,10 @@ namespace Testing
             items.Add(new BTCNumber(3));
             items.Add(new BTCNumber(4));
             ((BTCList) mObj.Tag("inventory")).Add(items);
-			mObj.Add("empty-test", new BTCObject());
-
+			BTCList emptiness = new BTCList();
+			emptiness.Add(new BTCList());
+			emptiness.Add(new BTCObject());
+			mObj.Add("empty-test", emptiness);
             BTCParser.EncodeIntoFile(mObj, path, true);
             
 

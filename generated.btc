@@ -11,16 +11,18 @@
 		(
 			@name > "Kirinite"
 			@description > "A fantasy mineral"
-		) ,
-		"Health Potion (12)" ,
+		),
+		"Health Potion (12)",
 		[
-			1 ,
-			2 ,
-			3 ,
+			1,
+			2,
+			3,
 			4
 		]
 	]
-	@empty-test > (
-	)
+	@empty-test > [
+		[ ],
+		( )
+	]
 	@n-e > "new entry"
 )
