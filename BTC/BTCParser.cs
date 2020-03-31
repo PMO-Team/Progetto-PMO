@@ -238,7 +238,7 @@ namespace BTC
 			}
 		}
 		//
-		public static string Encode(BTCObject obj, bool nicelyFormatted = false)
+		public static string Encode(BTCObject obj, bool nicelyFormatted = true)
 		{
 			string encoded;
 
@@ -250,7 +250,7 @@ namespace BTC
 			return encoded;
 		}
 		//
-		public static void EncodeIntoFile(BTCObject obj, string filepath, bool nicelyFormatted = false)
+		public static void EncodeIntoFile(BTCObject obj, string filepath, bool nicelyFormatted = true)
 		{
 			string encoded;
 
