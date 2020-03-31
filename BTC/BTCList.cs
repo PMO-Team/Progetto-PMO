@@ -138,7 +138,7 @@ namespace BTC
 				result += sep;
 				result += this.elements[i].Encode(separators + 1);
 				if (i != (this.elements.Count - 1))
-					result += " ,";
+					result += ",";
 				result += "\r\n";
 			}
 
