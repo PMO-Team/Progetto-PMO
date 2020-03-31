@@ -25,10 +25,16 @@ In questa implementazione le varie classi prendono i seguenti nomi:
 - BTCNumber
 - BTCString
 - BTCBool<br>
+
+
 Per la rappresentazione delle _foglie_, mentre:
 - BTCObject
 - BTCList<br>
+
+
 Rappresentano i _nodi_ dell'albero, ovvero gli oggetti "complessi".<br><br>
+
+
 Ciascuna delle classi sopracitate implementa un'interfaccia comune:
 - IBTCData<br>
 La quale espone due metodi per la codifica in testo (uno con ed uno senza parametri).<br><br>
