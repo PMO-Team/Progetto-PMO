@@ -2,6 +2,10 @@ using System.IO;
 
 namespace BTC
 {
+	/**
+	 * @class		BTCParser
+	 * @brief		Class that exposes public and static methods for dealing with BTC
+	 */
 	public class BTCParser
 	{
 		/**
@@ -16,27 +20,51 @@ namespace BTC
 		}
 
 
-		// Conversion Utils
+		/********************************************************************************/
+		/*								  Conversion Utils  							*/
+		/********************************************************************************/
+		/**
+		 * @fn		static bool TryParse(in string s, out double o)
+		 *
+		 * @param	s	String to try to parse
+		 * @param	o	Output destination
+		 *
+		 * @return		Return the success of the parsing of the string
+		 *
+		 * @brief		Try to parse a double from string 
+		 */
 		private static bool TryParse(in string s, out double o)
 		{
 			string val = string.Join(",", s.Split('.'));
 
 			return double.TryParse(val, out o);
 		}
-		//
+		/**
+		 * @fn		static bool TryParse(in string s, out bool o)
+		 *
+		 * @param	s	String to try to parse
+		 * @param	o	Output destination
+		 *
+		 * @return		Return the success of the parsing of the string
+		 *
+		 * @brief		Try to parse a boolean from string 
+		 */
 		private static bool TryParse(in string s, out bool o)
 		{
 			return (bool.TryParse(s, out o));
 		}
 
-		// Parsing utils
+		/********************************************************************************/
+		/*								   Parsing Utils								*/
+		/********************************************************************************/
 		/**
 		 * @fn			static BTCObject ParseObject(ref int i, in string str)
 		 * @params		i		Current character index
 		 * @params		str		String to parse
 		 *
-		 * @brief		Used for sub-parsing process of an object
+		 * @return		An instance of BTCObject
 		 *
+		 * @brief		Used for sub-parsing process of an object
 		 */
 		private static BTCObject ParseObject(ref int i, in string str)
 		{
@@ -62,7 +90,15 @@ namespace BTC
 
 			return mObj;
 		}
-		//
+		/**
+		 * @fn			static BTCList ParseList(ref int i, in string str)
+		 * @params		i		Current character index
+		 * @params		str		String to parse
+		 *
+		 * @return		An instance of BTCList
+		 *
+		 * @brief		Used for sub-parsing process of a list
+		 */
 		private static BTCList ParseList(ref int i, in string str)
 		{
 			BTCList mList = new BTCList();
@@ -94,81 +130,167 @@ namespace BTC
 
 			return mList;
 		}
-		//
+		/**
+		 * @fn			static void ParseElement(ref int i, in string str, ref BTCObject obj)
+		 *
+		 * @params		i		Current character index
+		 * @params		str		String to parse
+		 * @param		obj		BTCObject instance 
+		 * 
+		 * @throw		BTCSyntaxErrorException
+		 *
+		 * @brief		Add an element to the specified object
+		 * @details		This method parse an element piece by piece:
+		 * 				first of all read the tag, then the value and finally add it to the object
+		 */
 		private static void ParseElement(ref int i, in string str, ref BTCObject obj)
 		{
+			/*
+			 * Checks if the element starts with the element character. If it's not correct,
+			 * a BTCSyntaxErrorException is thrown.
+			 */
 			if (str[i] != '@')
 				throw new BTCSyntaxErrorException("Syntax Error: Not A Tag. Found At: " + i);
 			
+			/*
+			 * Read the tag one character at time, until '>' character
+			 */
 			string tag = "";
 			for (i += 1; str[i] != '>'; i++)
 				tag += str[i];
 
-				if ((tag.Length == 0) || (!BTCObject.IsTag(tag)))
-					throw new BTCSyntaxErrorException("Syntax Error: Invalid TAG. Found at: " + i);
+			/*
+			 * If TAG is empty or malformed, throws BTCSyntaxErrorException
+			 */
+			if ((tag.Length == 0) || (!BTCObject.IsTag(tag)))
+				throw new BTCSyntaxErrorException("Syntax Error: Invalid TAG. Found at: " + i);
 			
+			/*
+			 * Skip '>'
+			 */
 			i += 1;
-			if (str[i] == '(')
+
+			/*
+			 * Check which is the data value by controlling it's first character
+			 */
+			if (str[i] == '(') // For Object value
 				obj.Add(tag, ParseObject(ref i, in str));
-			else if (str[i] == '[')
+			else if (str[i] == '[') // For List value
 				obj.Add(tag, ParseList(ref i, in str));
-			else if (str[i] == '\"')
+			else if (str[i] == '\"')  // For string value
 				obj.Add(tag, new BTCString(ParseString(ref i, in str)));
-			else
+			else  // For any other value
 			{
+				/*
+				 * Read the value character by character, until it's different from
+				 * element starting character ('@') or object closing character (')')
+				 */
 				string value = "";
 				for (; (str[i] != '@') && (str[i] != ')'); i++)
 					value += str[i];
 				
+				/*
+				 * If the value is empty, a BTCSyntaxErrorException is thrown
+				 */
 				if (value.Length == 0)
 					throw new BTCSyntaxErrorException("Syntax Error: No Element Value. Found At: " + i);
 				
 				double dValue;
 				bool bValue;
 
+				/*
+				 * Otherwise, it tries to parse both double and boolean.
+				 * If nothing works, throws BTCSyntaxErrorException
+				 */
 				if (TryParse(value, out dValue))
-					obj.Add(tag, new BTCNumber(dValue));
+					obj.Add(tag, new BTCNumber(dValue)); // Succesfully parsed double, add the element
 				else if (TryParse(value, out bValue))
-					obj.Add(tag, new BTCBool(bValue));
-				else 
+					obj.Add(tag, new BTCBool(bValue)); // Succesfully parsed boolean, add the element
+				else
 					throw new BTCSyntaxErrorException("Syntax Error: Invalid Element Value. Found At: " + i);
 			}
 		}
-		//
+		/**
+		 * @fn			static void ParseItem(ref int i, in string str, ref BTCList list)
+		 *
+		 * @params		i		Current character index
+		 * @params		str		String to parse
+		 * @param		list	BTCList instance 
+		 * 
+		 * @throw		BTCSyntaxErrorException
+		 *
+		 * @brief		Add an item to the specified list
+		 * @details		This method parse an item.
+		 */
 		private static void ParseItem(ref int i, in string str, ref BTCList list)
 		{
-			if (str[i] == '(')
-				list.Add(ParseObject(ref i, in str));
-			else if (str[i] == '[')
-				list.Add(ParseList(ref i, in str));
-			else if (str[i] == '\"')
-				list.Add(new BTCString(ParseString(ref i, in str)));
-			else
+			/*
+			 * Check which is the data value by controlling it's first character
+			 */
+			if (str[i] == '(') // For Object value
+				list.Add(ParseObject(ref i, in str));					// Add the item
+			else if (str[i] == '[') // For List value
+				list.Add(ParseList(ref i, in str));						// Add the item
+			else if (str[i] == '\"') // For string value
+				list.Add(new BTCString(ParseString(ref i, in str)));	// Add the item
+			else // For any other value
 			{
 				string value = "";
+				/*
+				 * Read the value character by character, until it's different from
+				 * item separator character (',') or list closing character (']')
+				 */
 				for (; (str[i] != ',') && (str[i] != ']'); i++)
 					value += str[i];
-				
+
+				/*
+				 * If the value is empty, a BTCSyntaxErrorException is thrown
+				 */
 				if (value.Length == 0)
 					throw new BTCSyntaxErrorException("Syntax Error: no item value. Found At: " + i);
 				
 				double dValue;
 				bool bValue;
-				
+
+				/*
+				 * Otherwise, it tries to parse both double and boolean.
+				 * If nothing works, throws BTCSyntaxErrorException
+				 */
 				if (TryParse(value, out dValue))
-					list.Add(new BTCNumber(dValue));
+					list.Add(new BTCNumber(dValue));    // Succesfully parsed double, add the item
 				else if (TryParse(value, out bValue))
-					list.Add(new BTCBool(bValue));
+					list.Add(new BTCBool(bValue));      // Succesfully parsed boolean, add the item
 				else 
 					throw new BTCSyntaxErrorException("Syntax Error: invalid item value. Found At: " + i);
 			}
 		}
-		//
+		/**
+		 * @fn			static string ParseString(ref int i, in  string str)
+		 *
+		 * @params		i		Current character index
+		 * @params		str		String to parse
+		 * 
+		 * @throw		BTCSyntaxErrorException
+		 *
+		 * @brief		Parse a string
+		 * @details		This method parse an element piece by piece:
+		 * 				first of all read the tag, then the value and finally add it to the object
+		 */
 		private static string ParseString(ref int i, in  string str)
 		{
 			string ret = "";
+			/*
+			 * Scan the given string until the '"' character.
+			 * Skips the first character (string opening '"')
+			 */
 			for (i += 1; str[i] != '\"'; i++)
 			{
+				/*
+				 * Add characters unless '\' is found.
+				 * In that case it checks for valid special character.
+				 * If present, it is added to the string,
+				 * throws a BTCSyntaxErrorException otherwise.
+				 */
 				if (str[i] == '\\')
 				{
 					switch (str[i + 1])
@@ -193,6 +315,9 @@ namespace BTC
 						default:
 							throw new BTCSyntaxErrorException("Syntax Error: invalid special character at " + i);
 					}
+					/*
+					 * Skip the character next to '\'
+					 */
 					i += 1;
 				}
 				else
@@ -205,7 +330,7 @@ namespace BTC
 		}
 
 		/********************************************************************************/
-		/*								Public Methods									*/
+		/*								  Public Methods								*/
 		/********************************************************************************/
 
 		// Normalize the string (created for network usage) [O(n)]
