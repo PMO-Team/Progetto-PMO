@@ -17,6 +17,7 @@ namespace BTC
 		public string Value { get { return this._value; } }
 		/**
 		 * @fn			BTCString(string value)
+		 * 
 		 * @param		value	The real value of the BTC Data Element
 		 *
 		 * @brief		Constructor

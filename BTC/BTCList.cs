@@ -30,6 +30,9 @@ namespace BTC
 
 		/**
 		 * @fn			void Add(BTCString i)
+		 * 
+		 * @param		i		item to be added
+		 * 
 		 * @brief		Insert the new item in the list
 		 */
 		public void Add(BTCString i)
@@ -38,6 +41,9 @@ namespace BTC
 		}
 		/**
 		 * @fn			void Add(BTCNumber i)
+		 * 
+		 * @param		i		item to be added
+		 * 
 		 * @brief		Insert the new item in the list
 		 */
 		public void Add(BTCNumber i)
@@ -46,6 +52,9 @@ namespace BTC
 		}
 		/**
 		 * @fn			void Add(BTCBool i)
+		 * 
+		 * @param		i		item to be added
+		 * 
 		 * @brief		Insert the new item in the list
 		 */
 		public void Add(BTCBool i)
@@ -54,6 +63,9 @@ namespace BTC
 		}
 		/**
 		 * @fn			void Add(BTCObject i)
+		 * 
+		 * @param		i		item to be added
+		 * 
 		 * @brief		Insert the new item in the list
 		 */
 		public void Add(BTCObject i)
@@ -62,6 +74,9 @@ namespace BTC
 		}
 		/**
 		 * @fn			void Add(BTCList i)
+		 * 
+		 * @param		i		item to be added
+		 * 
 		 * @brief		Insert the new item in the list
 		 */
 		public void Add(BTCList i)
@@ -71,6 +86,9 @@ namespace BTC
 
 		/**
 		 * @fn			void RemoveAt(int index)
+		 *
+		 * @param		index	Index to be removed
+		 *
 		 * @brief		Remove the item at the corresponding index
 		 */
 		public void RemoveAt(int index)
@@ -79,6 +97,9 @@ namespace BTC
 		}
 		/**
 		 * @fn			int Count()
+		 * 
+		 * @return		The number of elements in the list
+		 *
 		 * @brief		Return the number of items in the list
 		 */
 		public int Count()
@@ -87,6 +108,11 @@ namespace BTC
 		}
 		/**
 		 * @fn			IBTCData At(int index)
+		 *
+		 * @param		index	Index of the item to read
+		 *
+		 * @return		The item if index is valid, null otherwise
+		 *
 		 * @brief		Return the IBTCData instance contained at 'index'.
 		 * 				If 'index' does not exist, will be returned 'null' value.
 		 */

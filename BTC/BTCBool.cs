@@ -17,6 +17,7 @@ namespace BTC
 		public bool Value { get { return this._value; } }
 		/**
 		 * @fn			BTCBool(bool value)
+		 * 
 		 * @param		value	The real value of the BTC Data Element
 		 *
 		 * @brief		Constructor

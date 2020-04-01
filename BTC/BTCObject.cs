@@ -51,6 +51,12 @@ namespace BTC
 
 		/**
 		 * @fn			bool Add(string tag, BTCNumber value)
+		 * 
+		 * @param		tag		TAG of the element
+		 * @param		value	VALUE of the element
+		 *
+		 * @return		Return if the value is added successfully or not.
+		 *
 		 * @brief		If TAG is malformed or already insert, the new value will be ignored
 		 */
 		public void Add(string tag, BTCNumber value)
@@ -64,6 +70,12 @@ namespace BTC
 		}
 		/**
 		 * @fn			bool Add(string tag, BTCString value)
+		 * 
+		 * @param		tag		TAG of the element
+		 * @param		value	VALUE of the element
+		 *
+		 * @return		Return if the value is added successfully or not.
+		 *
 		 * @brief		If TAG is malformed or already insert, the new value will be ignored
 		 */
 		public bool Add(string tag, BTCString value)
@@ -81,6 +93,12 @@ namespace BTC
 		}
 		/**
 		 * @fn			bool Add(string tag, BTCBool value)
+		 * 
+		 * @param		tag		TAG of the element
+		 * @param		value	VALUE of the element
+		 *
+		 * @return		Return if the value is added successfully or not.
+		 *
 		 * @brief		If TAG is malformed or already insert, the new value will be ignored
 		 */
 		public bool Add(string tag, BTCBool value)
@@ -98,6 +116,12 @@ namespace BTC
 		}
 		/**
 		 * @fn			bool Add(string tag, BTCObject value)
+		 * 
+		 * @param		tag		TAG of the element
+		 * @param		value	VALUE of the element
+		 *
+		 * @return		Return if the value is added successfully or not.
+		 *
 		 * @brief		If TAG is malformed or already insert, the new value will be ignored
 		 */
 		public bool Add(string tag, BTCObject value)
@@ -115,6 +139,12 @@ namespace BTC
 		}
 		/**
 		 * @fn			bool Add(string tag, BTCList value)
+		 * 
+		 * @param		tag		TAG of the element
+		 * @param		value	VALUE of the element
+		 *
+		 * @return		Return if the value is added successfully or not.
+		 *
 		 * @brief		If TAG is malformed or already insert, the new value will be ignored
 		 */
 		public bool Add(string tag, BTCList value)
@@ -133,6 +163,9 @@ namespace BTC
 
 		/**
 		 * @fn			void Remove(string tag)
+		 *
+		 * @param		tag		TAG to be removed
+		 *
 		 * @brief		Remove the element with the corrisponding TAG
 		 */
 		public void Remove(string tag)
@@ -141,6 +174,9 @@ namespace BTC
 		}
 		/**
 		 * @fn			int Count()
+		 *
+		 * @return		Returns the number of elements inside the object
+		 *
 		 * @brief		Returns the number of THIS object children
 		 */
 		public int Count()
@@ -150,6 +186,11 @@ namespace BTC
 
 		/**
 		 * @fn			IBTCData Tag(string tag)
+		 *
+		 * @param		tag		The tag to search
+		 * 
+		 * @return		If the tag is present, return the corrisponding value; null otherwise.
+		 *
 		 * @brief		Returns the IBTCData that is paired with TAG.
 		 *				If TAG doesn't exist, it returns null
 		 */

@@ -18,6 +18,7 @@ namespace BTC
 		public double Value { get { return this._value; } }
 		/**
 		 * @fn			BTCNumber(double value)
+		 * 
 		 * @param		value	The real value of the BTC Data Element
 		 *
 		 * @brief		Constructor
@@ -29,6 +30,7 @@ namespace BTC
 
 		/**
 		 * @fn			ToInteger()
+		 * 
 		 * @return		The numeric value as integer
 		 */
 		public int ToInteger()
@@ -37,6 +39,7 @@ namespace BTC
 		}
 		/**
 		* @fn			ToDouble()
+		* 
 		* @return		The numeric value as decimal (double)
 		*/
 		public double ToDouble()
