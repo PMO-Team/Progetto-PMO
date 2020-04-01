@@ -4,30 +4,19 @@ namespace BTC
 {
 	public class BTCParser
 	{
-		// Checks if a character is a padding character
+		/**
+		 * @fn				static bool IsPadding(char c)
+		 * @brief			Checks if a character is a padding character
+		 * @details			This function is used for make short the character
+		 * 					control in Normalize function
+		 */
 		private static bool IsPadding(char c)
 		{
 			return ((c == ' ') || (c == '\t') || (c == '\r') || (c == '\n'));
 		}
-		
-		// Parsing utils
-		private static BTCObject ParseObject(ref int i, in string str)
-		{
-			BTCObject mObj = new BTCObject();
 
-			for (i += 1; str[i] != ')'; )
-			{
-				ParseElement(ref i, in str, ref mObj);
-			}
 
-			//if (mObj.Count() == 0)
-			//	throw new BTCSyntaxErrorException("Syntax Error: cannot insert an empty object");
-
-			i += 1;
-
-			return mObj;
-		}
-		//
+		// Conversion Utils
 		private static bool TryParse(in string s, out double o)
 		{
 			string val = string.Join(",", s.Split('.'));
@@ -39,21 +28,68 @@ namespace BTC
 		{
 			return (bool.TryParse(s, out o));
 		}
+
+		// Parsing utils
+		/**
+		 * @fn			static BTCObject ParseObject(ref int i, in string str)
+		 * @params		i		Current character index
+		 * @params		str		String to parse
+		 *
+		 * @brief		Used for sub-parsing process of an object
+		 *
+		 */
+		private static BTCObject ParseObject(ref int i, in string str)
+		{
+			BTCObject mObj = new BTCObject();
+
+			/*
+			 * This method is invoked when the algortithm encounter
+			 * the character '(', so it increases the index position by 1
+			 */
+			for (i += 1; str[i] != ')'; )
+			{
+				/*
+				 * Until it doesn't find the closing object character, it continues
+				 * to parse elements (TAG > VALUE)
+				 */
+				ParseElement(ref i, in str, ref mObj);
+			}
+
+			/*
+			 * Increase the index position by one, for skip the end object character
+			 */
+			i += 1;
+
+			return mObj;
+		}
 		//
 		private static BTCList ParseList(ref int i, in string str)
 		{
 			BTCList mList = new BTCList();
 
+			/*
+			 * This method is invoked when the algortithm encounter
+			 * the character '[', so 
+			 */
 			for (i += 1; str[i] != ']'; )
 			{
+				/*
+				 * Until it doesn't find the closing list character, it continues
+				 * to parse items (VALUE)
+				 */
 				ParseItem(ref i, in str, ref mList);
+
+				/*
+				 * If the item is followed by ',', it means that
+				 * there are other items
+				 */
 				if (str[i] == ',')
 					i += 1;
 			}
-			
-			//if (mList.Count() == 0)
-			//	throw new BTCSyntaxErrorException("Syntax Error: cannot insert an empty list");
 
+			/*
+			 * Increase the index position by one, for skip the end object character
+			 */
 			i += 1;
 
 			return mList;
@@ -168,7 +204,21 @@ namespace BTC
 			return ret;
 		}
 
+		/********************************************************************************/
+		/*								Public Methods									*/
+		/********************************************************************************/
+
 		// Normalize the string (created for network usage) [O(n)]
+		/**
+		 * @fn			static string Normalize(in string str)
+		 * @param		str		String to normalize
+		 *
+		 * @return		The string without padding characters
+		 *
+		 * @brief		Returns the string without padding characters
+		 * @details		By a given string, creates a version without padding characters, but
+		 * 				leaves string values intact (BTC specs for file).
+		 */
 		public static string Normalize(in string str)
 		{
 			string normalized = "";
@@ -198,9 +248,16 @@ namespace BTC
 			
 			return normalized;
 		}
-
-		// Public Parsing Methods
-		//
+		/**
+		 * @fn			static BTCObject Decode(string str)
+		 * @param		str		String to decode
+		 *
+		 * @return		The instance of BTCObject
+		 *
+		 * @throw		BTCSyntaxErrorException
+		 *
+		 * @brief		Decode the string into an instance of BTCObject
+		 */
 		public static BTCObject Decode(string str)
 		{
 			try
@@ -208,6 +265,8 @@ namespace BTC
 				string norm = Normalize(in str);
 
 				int i = 0;
+				if (norm[i] != '(')
+					throw new BTCSyntaxErrorException("Syntax Error: not an object");
 				BTCObject rObj = ParseObject(ref i, in norm);
 
 				return rObj;
@@ -217,7 +276,16 @@ namespace BTC
 				throw new BTCSyntaxErrorException("Syntax Error: Data Are Incomplete");
 			}
 		}
-		//
+		/**
+		 * @fn			static BTCObject DecodeFromFile(string filepath)
+		 * @param		filepath	Path to the file to decode
+		 *
+		 * @return		The instance of BTCObject
+		 *
+		 * @throw		BTCSyntaxErrorException
+		 *
+		 * @brief		Decode the specified file into an instance of BTCObject
+		 */
 		public static BTCObject DecodeFromFile(string filepath)
 		{
 			try
@@ -228,6 +296,8 @@ namespace BTC
 				string norm = Normalize(in file);
 
 				int i = 0;
+				if (norm[i] != '(')
+					throw new BTCSyntaxErrorException("Syntax Error: not an object");
 				BTCObject rObj = ParseObject(ref i, in norm);
 				
 				return rObj;
@@ -237,7 +307,16 @@ namespace BTC
 				throw new BTCSyntaxErrorException("Syntax Error: Data in File are Incomplete");
 			}
 		}
-		//
+		/**
+		 * @fn			static string Encode(BTCObject obj, bool nicelyFormatted = true)
+		 * @param		obj					BTCObject instance that is intended to be encode
+		 * @param		nicelyFormatted		(optional) Specify how the object should be encoded,
+		 * 									default value set true 
+		 *
+		 * @return		The encoded object as string
+		 *
+		 * @brief		Encode the instance of BTCObject in a string
+		 */
 		public static string Encode(BTCObject obj, bool nicelyFormatted = true)
 		{
 			string encoded;
@@ -249,7 +328,15 @@ namespace BTC
 
 			return encoded;
 		}
-		//
+		/**
+		 * @fn			static void EncodeIntoFile(BTCObject obj, string filepath, bool nicelyFormatted = true)
+		 * @param		obj					BTCObject instance that is intended to be encode
+		 * @param		filepath			Path of the file that will be created
+		 * @param		nicelyFormatted		(optional) Specify how the object should be encoded,
+		 * 									default value set true 
+		 *
+		 * @brief		Encode the instance of BTCObject in the specified file
+		 */
 		public static void EncodeIntoFile(BTCObject obj, string filepath, bool nicelyFormatted = true)
 		{
 			string encoded;

@@ -26,9 +26,6 @@ namespace BTC
 			this._value = value;
 		}
 
-		/**
-		 * @todo	COMMENT ALGORITHMS
-		 */
 		public string Encode()
 		{
 			string ret = "\"";

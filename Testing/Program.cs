@@ -9,7 +9,7 @@ namespace Testing
         {
             string path = System.AppDomain.CurrentDomain.BaseDirectory + "../../../../generated.btc";
 
-            BTCObject mObj = new BTCObject();
+            /*BTCObject mObj = new BTCObject();
             mObj.Add("player", new BTCString("simo"));
             mObj.Add("pg-name", new BTCString("Kirox"));
             mObj.Add("pg-level", new BTCNumber(3));
@@ -35,7 +35,7 @@ namespace Testing
 			emptiness.Add(new BTCList());
 			emptiness.Add(new BTCObject());
 			mObj.Add("empty-test", emptiness);
-            BTCParser.EncodeIntoFile(mObj, path, true);
+            BTCParser.EncodeIntoFile(mObj, path, true);*/
             
 
             try

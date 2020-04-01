@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['normalize_49',['Normalize',['../classBTC_1_1BTCParser.html#a9c14a71b8f5cd71e55fffe8d94137b73',1,'BTC::BTCParser']]]
+  ['normalize_48',['Normalize',['../classBTC_1_1BTCParser.html#a5f4093ca253531e3cd77dd25491088b1',1,'BTC::BTCParser']]]
 ];

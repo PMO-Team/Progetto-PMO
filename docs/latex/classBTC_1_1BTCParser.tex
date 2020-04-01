@@ -3,50 +3,123 @@
 \doxysubsection*{Static Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-static string \mbox{\hyperlink{classBTC_1_1BTCParser_a9c14a71b8f5cd71e55fffe8d94137b73}{Normalize}} (in string str)
-\item 
-static \mbox{\hyperlink{classBTC_1_1BTCObject}{B\+T\+C\+Object}} \mbox{\hyperlink{classBTC_1_1BTCParser_ad8c8e562425ef4bc6a3751ad264b2fa8}{Decode}} (string str)
-\item 
-static \mbox{\hyperlink{classBTC_1_1BTCObject}{B\+T\+C\+Object}} \mbox{\hyperlink{classBTC_1_1BTCParser_abd5841f0ca35f3882e1cf141332ee636}{Decode\+From\+File}} (string filepath)
-\item 
-static string \mbox{\hyperlink{classBTC_1_1BTCParser_ae739d7c4f49b1d2f081e28425cb56527}{Encode}} (\mbox{\hyperlink{classBTC_1_1BTCObject}{B\+T\+C\+Object}} obj, bool nicely\+Formatted=false)
-\item 
-static void \mbox{\hyperlink{classBTC_1_1BTCParser_af6f46a5a40ac887d38469966e0100925}{Encode\+Into\+File}} (\mbox{\hyperlink{classBTC_1_1BTCObject}{B\+T\+C\+Object}} obj, string filepath, bool nicely\+Formatted=false)
-\end{DoxyCompactItemize}
+static string \mbox{\hyperlink{classBTC_1_1BTCParser_a5f4093ca253531e3cd77dd25491088b1}{Normalize}} (in string str)
+\begin{DoxyCompactList}\small\item\em Returns the string without padding characters. \end{DoxyCompactList}\item 
+static \mbox{\hyperlink{classBTC_1_1BTCObject}{B\+T\+C\+Object}} \mbox{\hyperlink{classBTC_1_1BTCParser_ae2da7c3b0bccb3932a2b0e2c03cfe056}{Decode}} (string str)
+\begin{DoxyCompactList}\small\item\em Decode the string into an instance of \mbox{\hyperlink{classBTC_1_1BTCObject}{B\+T\+C\+Object}}. \end{DoxyCompactList}\item 
+static \mbox{\hyperlink{classBTC_1_1BTCObject}{B\+T\+C\+Object}} \mbox{\hyperlink{classBTC_1_1BTCParser_a850c032bd819ecdab7be66bb72bcf54d}{Decode\+From\+File}} (string filepath)
+\begin{DoxyCompactList}\small\item\em Decode the specified file into an instance of \mbox{\hyperlink{classBTC_1_1BTCObject}{B\+T\+C\+Object}}. \end{DoxyCompactList}\item 
+static string \mbox{\hyperlink{classBTC_1_1BTCParser_a140d8786cd5ec0b4b6feb2bf633e33ce}{Encode}} (\mbox{\hyperlink{classBTC_1_1BTCObject}{B\+T\+C\+Object}} obj, bool nicely\+Formatted=true)
+\begin{DoxyCompactList}\small\item\em Encode the instance of \mbox{\hyperlink{classBTC_1_1BTCObject}{B\+T\+C\+Object}} in a string. \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{classBTC_1_1BTCParser_aa63e1d5454e3df6fc5c7906c68a4ac0c}{Encode\+Into\+File}} (\mbox{\hyperlink{classBTC_1_1BTCObject}{B\+T\+C\+Object}} obj, string filepath, bool nicely\+Formatted=true)
+\begin{DoxyCompactList}\small\item\em Encode the instance of \mbox{\hyperlink{classBTC_1_1BTCObject}{B\+T\+C\+Object}} in the specified file. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Member Function Documentation}
-\mbox{\Hypertarget{classBTC_1_1BTCParser_ad8c8e562425ef4bc6a3751ad264b2fa8}\label{classBTC_1_1BTCParser_ad8c8e562425ef4bc6a3751ad264b2fa8}} 
+\mbox{\Hypertarget{classBTC_1_1BTCParser_ae2da7c3b0bccb3932a2b0e2c03cfe056}\label{classBTC_1_1BTCParser_ae2da7c3b0bccb3932a2b0e2c03cfe056}} 
 \index{BTC.BTCParser@{BTC.BTCParser}!Decode@{Decode}}
 \index{Decode@{Decode}!BTC.BTCParser@{BTC.BTCParser}}
 \doxysubsubsection{\texorpdfstring{Decode()}{Decode()}}
 {\footnotesize\ttfamily static \mbox{\hyperlink{classBTC_1_1BTCObject}{B\+T\+C\+Object}} B\+T\+C.\+B\+T\+C\+Parser.\+Decode (\begin{DoxyParamCaption}\item[{string}]{str }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
 
-\mbox{\Hypertarget{classBTC_1_1BTCParser_abd5841f0ca35f3882e1cf141332ee636}\label{classBTC_1_1BTCParser_abd5841f0ca35f3882e1cf141332ee636}} 
+
+
+Decode the string into an instance of \mbox{\hyperlink{classBTC_1_1BTCObject}{B\+T\+C\+Object}}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em str} & String to decode\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The instance of \mbox{\hyperlink{classBTC_1_1BTCObject}{B\+T\+C\+Object}}
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \mbox{\hyperlink{classBTC_1_1BTCSyntaxErrorException}{B\+T\+C\+Syntax\+Error\+Exception}}} & \\
+\hline
+\end{DoxyExceptions}
+\mbox{\Hypertarget{classBTC_1_1BTCParser_a850c032bd819ecdab7be66bb72bcf54d}\label{classBTC_1_1BTCParser_a850c032bd819ecdab7be66bb72bcf54d}} 
 \index{BTC.BTCParser@{BTC.BTCParser}!DecodeFromFile@{DecodeFromFile}}
 \index{DecodeFromFile@{DecodeFromFile}!BTC.BTCParser@{BTC.BTCParser}}
 \doxysubsubsection{\texorpdfstring{DecodeFromFile()}{DecodeFromFile()}}
 {\footnotesize\ttfamily static \mbox{\hyperlink{classBTC_1_1BTCObject}{B\+T\+C\+Object}} B\+T\+C.\+B\+T\+C\+Parser.\+Decode\+From\+File (\begin{DoxyParamCaption}\item[{string}]{filepath }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
 
-\mbox{\Hypertarget{classBTC_1_1BTCParser_ae739d7c4f49b1d2f081e28425cb56527}\label{classBTC_1_1BTCParser_ae739d7c4f49b1d2f081e28425cb56527}} 
+
+
+Decode the specified file into an instance of \mbox{\hyperlink{classBTC_1_1BTCObject}{B\+T\+C\+Object}}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em filepath} & Path to the file to decode\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The instance of \mbox{\hyperlink{classBTC_1_1BTCObject}{B\+T\+C\+Object}}
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \mbox{\hyperlink{classBTC_1_1BTCSyntaxErrorException}{B\+T\+C\+Syntax\+Error\+Exception}}} & \\
+\hline
+\end{DoxyExceptions}
+\mbox{\Hypertarget{classBTC_1_1BTCParser_a140d8786cd5ec0b4b6feb2bf633e33ce}\label{classBTC_1_1BTCParser_a140d8786cd5ec0b4b6feb2bf633e33ce}} 
 \index{BTC.BTCParser@{BTC.BTCParser}!Encode@{Encode}}
 \index{Encode@{Encode}!BTC.BTCParser@{BTC.BTCParser}}
 \doxysubsubsection{\texorpdfstring{Encode()}{Encode()}}
-{\footnotesize\ttfamily static string B\+T\+C.\+B\+T\+C\+Parser.\+Encode (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classBTC_1_1BTCObject}{B\+T\+C\+Object}}}]{obj,  }\item[{bool}]{nicely\+Formatted = {\ttfamily false} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+{\footnotesize\ttfamily static string B\+T\+C.\+B\+T\+C\+Parser.\+Encode (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classBTC_1_1BTCObject}{B\+T\+C\+Object}}}]{obj,  }\item[{bool}]{nicely\+Formatted = {\ttfamily true} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
 
-\mbox{\Hypertarget{classBTC_1_1BTCParser_af6f46a5a40ac887d38469966e0100925}\label{classBTC_1_1BTCParser_af6f46a5a40ac887d38469966e0100925}} 
+
+
+Encode the instance of \mbox{\hyperlink{classBTC_1_1BTCObject}{B\+T\+C\+Object}} in a string. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em obj} & \mbox{\hyperlink{classBTC_1_1BTCObject}{B\+T\+C\+Object}} instance that is intended to be encode \\
+\hline
+{\em nicely\+Formatted} & (optional) Specify how the object should be encoded, default value set true\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The encoded object as string 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classBTC_1_1BTCParser_aa63e1d5454e3df6fc5c7906c68a4ac0c}\label{classBTC_1_1BTCParser_aa63e1d5454e3df6fc5c7906c68a4ac0c}} 
 \index{BTC.BTCParser@{BTC.BTCParser}!EncodeIntoFile@{EncodeIntoFile}}
 \index{EncodeIntoFile@{EncodeIntoFile}!BTC.BTCParser@{BTC.BTCParser}}
 \doxysubsubsection{\texorpdfstring{EncodeIntoFile()}{EncodeIntoFile()}}
-{\footnotesize\ttfamily static void B\+T\+C.\+B\+T\+C\+Parser.\+Encode\+Into\+File (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classBTC_1_1BTCObject}{B\+T\+C\+Object}}}]{obj,  }\item[{string}]{filepath,  }\item[{bool}]{nicely\+Formatted = {\ttfamily false} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+{\footnotesize\ttfamily static void B\+T\+C.\+B\+T\+C\+Parser.\+Encode\+Into\+File (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classBTC_1_1BTCObject}{B\+T\+C\+Object}}}]{obj,  }\item[{string}]{filepath,  }\item[{bool}]{nicely\+Formatted = {\ttfamily true} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
 
-\mbox{\Hypertarget{classBTC_1_1BTCParser_a9c14a71b8f5cd71e55fffe8d94137b73}\label{classBTC_1_1BTCParser_a9c14a71b8f5cd71e55fffe8d94137b73}} 
+
+
+Encode the instance of \mbox{\hyperlink{classBTC_1_1BTCObject}{B\+T\+C\+Object}} in the specified file. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em obj} & \mbox{\hyperlink{classBTC_1_1BTCObject}{B\+T\+C\+Object}} instance that is intended to be encode \\
+\hline
+{\em filepath} & Path of the file that will be created \\
+\hline
+{\em nicely\+Formatted} & (optional) Specify how the object should be encoded, default value set true \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classBTC_1_1BTCParser_a5f4093ca253531e3cd77dd25491088b1}\label{classBTC_1_1BTCParser_a5f4093ca253531e3cd77dd25491088b1}} 
 \index{BTC.BTCParser@{BTC.BTCParser}!Normalize@{Normalize}}
 \index{Normalize@{Normalize}!BTC.BTCParser@{BTC.BTCParser}}
 \doxysubsubsection{\texorpdfstring{Normalize()}{Normalize()}}
 {\footnotesize\ttfamily static string B\+T\+C.\+B\+T\+C\+Parser.\+Normalize (\begin{DoxyParamCaption}\item[{in string}]{str }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
 
 
+
+Returns the string without padding characters. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em str} & String to normalize\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The string without padding characters
+\end{DoxyReturn}
+By a given string, creates a version without padding characters, but leaves string values intact (\mbox{\hyperlink{namespaceBTC}{B\+TC}} specs for file). 
 
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 

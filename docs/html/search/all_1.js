@@ -7,5 +7,5 @@ var searchData=
   ['btcobject_6',['BTCObject',['../classBTC_1_1BTCObject.html',1,'BTC.BTCObject'],['../classBTC_1_1BTCObject.html#a3a407bf8e2a6af153bcee62968133c88',1,'BTC.BTCObject.BTCObject()']]],
   ['btcparser_7',['BTCParser',['../classBTC_1_1BTCParser.html',1,'BTC']]],
   ['btcstring_8',['BTCString',['../classBTC_1_1BTCString.html',1,'BTC.BTCString'],['../classBTC_1_1BTCString.html#a6a7a00973c05afc351946b11cb0d0db2',1,'BTC.BTCString.BTCString()']]],
-  ['btcsyntaxerrorexception_9',['BTCSyntaxErrorException',['../classBTC_1_1BTCSyntaxErrorException.html',1,'BTC.BTCSyntaxErrorException'],['../classBTC_1_1BTCSyntaxErrorException.html#ade61e9b027ede0a87c9b99cd266876a3',1,'BTC.BTCSyntaxErrorException.BTCSyntaxErrorException()'],['../classBTC_1_1BTCSyntaxErrorException.html#a8d1518494e0998175f3ffa6ad9cd3ff7',1,'BTC.BTCSyntaxErrorException.BTCSyntaxErrorException(string message)']]]
+  ['btcsyntaxerrorexception_9',['BTCSyntaxErrorException',['../classBTC_1_1BTCSyntaxErrorException.html',1,'BTC.BTCSyntaxErrorException'],['../classBTC_1_1BTCSyntaxErrorException.html#a8d1518494e0998175f3ffa6ad9cd3ff7',1,'BTC.BTCSyntaxErrorException.BTCSyntaxErrorException()']]]
 ];
