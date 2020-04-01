@@ -262,17 +262,22 @@ namespace BTC
 		{
 			try
 			{
+				// Normalize the string, for optimize string analysis
 				string norm = Normalize(in str);
 
 				int i = 0;
+				// Check if the first character is '(' (not done by ParseObject)
 				if (norm[i] != '(')
 					throw new BTCSyntaxErrorException("Syntax Error: not an object");
+				
+				// Actual Parsing
 				BTCObject rObj = ParseObject(ref i, in norm);
 
 				return rObj;
 			}
 			catch (System.IndexOutOfRangeException)
 			{
+				// If the IndexOutOfRangeException occours, means that file is incomplete
 				throw new BTCSyntaxErrorException("Syntax Error: Data Are Incomplete");
 			}
 		}
@@ -290,14 +295,20 @@ namespace BTC
 		{
 			try
 			{
+				// Read all the content of the file
 				StreamReader sr = new StreamReader(filepath);
 				string file = sr.ReadToEnd();
 				sr.Close();
+
+				// Normalize the string, for optimize string analysis
 				string norm = Normalize(in file);
 
 				int i = 0;
+				// Check if the first character is '(' (not done by ParseObject)
 				if (norm[i] != '(')
 					throw new BTCSyntaxErrorException("Syntax Error: not an object");
+				
+				// Actual Parsing
 				BTCObject rObj = ParseObject(ref i, in norm);
 				
 				return rObj;
@@ -321,6 +332,7 @@ namespace BTC
 		{
 			string encoded;
 
+			// Choose the algorithm to use
 			if (nicelyFormatted)
 				encoded = obj.Encode(1);
 			else
@@ -341,13 +353,16 @@ namespace BTC
 		{
 			string encoded;
 
+			// Creates the instance for writing in the secified file
 			StreamWriter sw = new StreamWriter(filepath);
 
+			// Choose the algorithm to use
 			if (nicelyFormatted)
 				encoded = obj.Encode(1);
 			else
 				encoded = obj.Encode();
 
+			// Write down the result
 			sw.Write(encoded);
 			sw.Close();
 		}
